@@ -1,0 +1,11 @@
+export const GET_PAYMENTS = 'GET_PAYMENTS';
+export const GET_PAYMENT = 'GET_PAYMENT';
+export const GET_FEES = 'GET_FEES';
+export const ADD_FEE = 'ADD_FEE';
+export const EDIT_FEE = 'EDIT_FEE';
+export const GET_INVOICES = 'GET_INVOICES';
+export const GET_INVOICE = 'GET_INVOICE';
+export const ADD_INVOICE = 'ADD_INVOICE';
+export const PAY = 'PAY';
+export const GET_INVOICE_LINES = 'GET_INVOICE_LINES';
+export const GET_PAYMENT_REPORTS = 'GET_PAYMENT_REPORTS';
