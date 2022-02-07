@@ -39,6 +39,12 @@ class Product(models.Model):
 
     ]
 
+    BOOLEAN_CHOICES = [
+        ('YES', 'YES'),
+        ('NO', 'NO')
+    ]
+
+
     type = models.CharField(
                     choices=PRODUCT_TYPE_CHOICES,
                     max_length=200,
@@ -67,7 +73,13 @@ class Product(models.Model):
                         null=True,
                         blank=True
                     )
-    digital = models.BooleanField(default=False)
+    digital = models.CharField(
+                            max_length=200,
+                            blank=False,
+                            null=False,
+                            choices=BOOLEAN_CHOICES,
+                            default='NO'
+                        )
 
     name = models.CharField(
                     max_length=256,
@@ -81,7 +93,7 @@ class Product(models.Model):
         return self.name
 
 
-
+            
 
 class ProductImage(models.Model):
 

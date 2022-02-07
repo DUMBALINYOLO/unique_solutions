@@ -20,6 +20,12 @@ class Service(models.Model):
 
     ]
 
+
+    BOOLEAN_CHOICES = [
+        ('YES', 'YES'),
+        ('NO', 'NO')
+    ]
+
     name = models.CharField(max_length=255)
     description = models.TextField(blank=True)
     fee = models.DecimalField(max_digits=16, decimal_places=2)
@@ -29,7 +35,35 @@ class Service(models.Model):
                             null=False,
                             choices=SERVICE_CATEGORY_CHOICES
                         )
-    is_listed = models.BooleanField(default=False, blank=True)
+    listed = models.CharField(
+                            max_length=200,
+                            blank=False,
+                            null=False,
+                            choices=BOOLEAN_CHOICES,
+                            default='YES'
+                        )
 
     def __str__(self):
         return self.name
+
+
+
+class ServiceImage(models.Model):
+
+    service = models.ForeignKey(
+                        Service,
+                        null=False,
+                        blank=False,
+                        on_delete=models.CASCADE,
+                        related_name='images'
+                    )
+    image = models.ImageField(
+                        upload_to='services/%Y/%m/%d/',
+                        null=True,
+                        blank=True
+                    )
+
+
+    def __str__(self):
+        return f"<Image of {self.service.name} >"
+
