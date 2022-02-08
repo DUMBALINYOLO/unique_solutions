@@ -60,16 +60,16 @@ class ManagementLayout extends React.Component {
     const { openGuide, appHeight } = this.state;
     const titleException = ['/', '/', '/'];
 
-    if (!this.props.token){
-      return <Redirect  to="/login" />;
-    }
-    if(this.props.token !== null){
-      if (this.props.userRole !== 'admin'){
-        if (this.props.userRole === 'bursar'){
-          return <Redirect to="/bursardashboard" />
-        }
-      }
-    }
+    // if (!this.props.token){
+    //   return <Redirect  to="/login" />;
+    // }
+    // if(this.props.token !== null){
+    //   if (this.props.userRole !== 'admin'){
+    //     if (this.props.userRole === 'bursar'){
+    //       return <Redirect to="/bursardashboard" />
+    //     }
+    //   }
+    // }
     return (
       <div
         style={{ minHeight: appHeight }}

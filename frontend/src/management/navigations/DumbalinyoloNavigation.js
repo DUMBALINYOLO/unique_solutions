@@ -82,7 +82,7 @@ class DumbalinyoloNavigation extends React.Component {
               style={{ opacity: 1 - (transform / 100), marginTop: transform * - 0.3 }}
             >
               <NavLink to="/" className={classNames(classes.brand, classes.brandBar, turnDarker && classes.darker)}>
-                <h1>DAWINI HIGH SCHOOL</h1>
+                <h1>UNIQUE SOLUTIONS</h1>
               </NavLink>
               <PrimeDivider />
             </div>

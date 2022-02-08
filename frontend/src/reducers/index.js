@@ -1,9 +1,11 @@
 import { combineReducers } from 'redux';
 import uiReducer from './ui';
 import auth from './auth';
-import errors from './errors'
-import fees from './fees'
+import errors from './errors';
+import sales from './sales';
 import users from './users/users';
+import products from './products';
+import services from './services';
 
 
 
@@ -11,6 +13,8 @@ export default combineReducers({
     errors,
     ui: uiReducer,
     auth,
-    fees,
+    sales,
     users,
+    services,
+    products
 });

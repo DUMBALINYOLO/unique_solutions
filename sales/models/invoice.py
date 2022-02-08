@@ -46,6 +46,19 @@ class Invoice(models.Model):
     ]
 
 
+
+    COMPANY_ACTIONS_STATUS = [
+        ('pending', 'PENDING'),
+        ('accepted', 'ACCEPTED'),
+        ('rejected', 'REJECTED'),
+        ('completed', 'COMPLETED'),
+        ('cancelled', 'CANCELLED'),
+        ('refunded', 'REFUNDED'),
+    ]
+
+
+
+
     tracking_number = models.CharField(max_length=255, null=True, default=None)
     i_type = models.CharField(
                     max_length=255,
@@ -53,6 +66,12 @@ class Invoice(models.Model):
                     default=None,
                     choices=INVOICE_TYPE
                 )
+    company_status = models.CharField(
+                        max_length=32,
+                        choices=COMPANY_ACTIONS_STATUS,
+                        default='pending',
+
+                    )
     validated_by = models.ForeignKey(
                         'users.User',
                         blank=True,
@@ -83,6 +102,7 @@ class Invoice(models.Model):
                         default ='Make sure you pay as soon as possible'
                     )
     is_voided = models.BooleanField(blank=True,default=False)
+    ordered = models.BooleanField(default=False)
 
 
 
@@ -181,6 +201,13 @@ class InvoiceLine(models.Model):
 
     ]
 
+    type = models.CharField(
+                max_length=255, 
+                null=True, 
+                default=None,
+                choices=INVOICE_TYPE_CHOICES
+            )
+
     invoice = models.ForeignKey(
                             'sales.Invoice',
                             on_delete=models.SET_NULL,
@@ -189,6 +216,7 @@ class InvoiceLine(models.Model):
                             related_name= 'lines'
 
                         )
+    ordered = models.BooleanField(default=False)
     service = models.ForeignKey(
                         'services.Service',
                         on_delete=models.SET_NULL,

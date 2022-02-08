@@ -16,8 +16,16 @@ export const resetpasswordURL = `${endpoint}/users/reset-password/`
 export const forgotpasswordURL = `${endpoint}/users/forgot-password/`
 
 
-export const paymentsURL = `${endpoint}/fees/payments/`
-export const invoicelinesURL = `${endpoint}/fees/invoice-lines/`
-export const invoicesURL = `${endpoint}/fees/invoices/`
-export const feesURL = `${endpoint}/fees/fees/`
-export const paymentreportsURL = `${endpoint}/fees/payment-reports/`
+export const paymentsURL = `${endpoint}/sales/payments/`
+export const invoicelinesURL = `${endpoint}/sales/invoice-lines/`
+export const invoicesURL = `${endpoint}/sales/invoices/`
+export const quotationsURL = `${endpoint}/sales/quotations/`
+export const paymentreportsURL = `${endpoint}/sales/payment-reports/`
+export const customerproductlinesURL = `${endpoint}/sales/customer-product-lines/`
+export const customerservicelinesURL = `${endpoint}/sales/customer-service-lines/`
+
+export const productsURL = `${endpoint}/products/products/`
+export const productimagesURL = `${endpoint}/products/product-images/`
+
+export const servicesURL = `${endpoint}/services/services/`
+export const serviceimagesURL = `${endpoint}/services/service-images/`

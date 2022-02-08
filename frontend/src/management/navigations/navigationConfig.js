@@ -62,16 +62,32 @@ const navigationConfig = [
       },
 
       {
-        id: "fees",
-        title: "FEES",
+        id: "PRODUCTS",
+        title: "PRODUCTS",
         type: "collapse",
         icon: <BsEnvelopeOpenFill/>,
         children: [
           {
             id: "enquiries",
-            title: "FEES",
+            title: "PRODUCTS",
             type: "item",
-            url: '/managementdashboard/fees',
+            url: '/managementdashboard/products',
+            exact: true,
+          },
+        ],
+      },
+
+      {
+        id: "SERVICES",
+        title: "SERVICES",
+        type: "collapse",
+        icon: <BsEnvelopeOpenFill/>,
+        children: [
+          {
+            id: "enquiries",
+            title: "SERVICES",
+            type: "item",
+            url: '/managementdashboard/services',
             exact: true,
           },
         ],
