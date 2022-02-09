@@ -1,10 +1,57 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { Button } from 'primereact/button';
-import { addProduct } from '../../actions/products';
+import { addProduct, editProduct } from '../../actions/products';
 import { InputNumber } from 'primereact/inputnumber';
 import { Dialog } from 'primereact/dialog';
 import { InputText } from 'primereact/inputtext';
+import { Badge } from 'primereact/badge';
+import { Dropdown } from 'primereact/dropdown';
+
+
+
+let emptyProduct = {
+    type: '',
+    visibility: '',
+    return_policy: '',
+    primary_image: '',
+    digital: '',
+    name: '',
+    price: '',
+};
+
+const visibilityOptions = [
+
+    {key: 'visible', value: 'VISIBLE'},
+    {key: 'invisible', value:'INVISIBLE'},
+    {key: 'deleted', value:'DELETED'},
+]
+
+
+const booleanOptions = [
+
+    {key: 'YES', value: 'YES'},
+    {key: 'NO', value:'NO'},
+]
+
+
+const typeOptions = [
+
+    {key: 'art', value: 'art'},
+    {key: 'automative', value: 'automative'},
+    {key: 'computer', value: 'computer'},
+    {key: 'electronic', value: 'electronic'},
+    {key: 'fashion', value: 'fashion'},
+    {key: 'industrial_and_scientific', value: 'industrial_and_scientific'},
+    {key: 'video_game', value: 'video_game'},
+]
+
+
+const returnOptions = [
+
+    {key: 'returnable', value: 'This Item is returnable'},
+    {key: 'unreturnable', value: 'This item is not returnable'},
+]
 
 
 
@@ -15,32 +62,43 @@ import { InputText } from 'primereact/inputtext';
 const AddProduct = (props) => {
 
     const {token} = props;
-    const [type, setType] = useState();
-    const [visibility, setVisibility] = useState();
-    const [return_policy, setReturnPolicy] = useState();
-    const [primary_image, setPrimaryImage] = useState();
-    const [digital, setDigital] = useState();
-    const [name, setName] = useState();
-    const [price, setPrice] = useState();
-    
-    
+    // const [type, setType] = useState();
+    // const [visibility, setVisibility] = useState();
+    // const [return_policy, setReturnPolicy] = useState();
+    // const [primary_image, setPrimaryImage] = useState();
+    // const [digital, setDigital] = useState();
+    // const [name, setName] = useState();
+    // const [price, setPrice] = useState();
 
 
-    const saveImage = (e) => {
+    const [record, setRecord] = useState(emptyProduct);
+
+
+
+
+    const saveProduct = (e) => {
         e.preventDefault();
+        let _record = {...record};
+        if (record.id) {
+            props.editProduct(record.id, record, token);
+            props.getProducts(token);
+            props.setProductDialog(true);
 
-        const uploadData = {
-          type,
-          visibility,
-          return_policy,
-          primary_image,
-          digital,
-          name,
-          price,
         }
-        props.addProduct(uploadData)
-        props.imageDialog(false)
-        props.getProducts()
+        else {
+            props.addProduct(_record, token)
+            console.log(_record)
+            props.getProducts(token);
+
+        }
+        props.setProductDialog(false);
+        setRecord(emptyProduct);
+    }
+
+
+    const editProduct = (record) => {
+        setRecord({...record});
+        props.setProductDialog(true);
     }
 
 
@@ -61,8 +119,18 @@ const AddProduct = (props) => {
     const handleFileRead = async (event) => {
       const file = event.target.files[0]
       const base64 = await convertBase64(file)
-      setImage(base64)
+      let _record = {...record};
+      _record['primary_image'] = base64;
+      setRecord(_record);
     }
+
+    const onInputChange = (e, name) => {
+        const val = (e.target && e.target.value) || '';
+        let _record = {...record};
+        _record[`${name}`] = val;
+        setRecord(_record);
+    }
+
 
 
     return (
@@ -71,17 +139,100 @@ const AddProduct = (props) => {
             <input
               accept="image/*"
               type="file"
-              name='cover'
+              name='primary_image'
               onChange={(evt) => handleFileRead(evt)}
             />
 
 
           </div>
+          <div className="p-field p-col-12 p-md-12">
+            <span className="p-float-label p-input-icon-right">
+                <i className="pi pi-spin pi-spinner" />
+                <InputText
+                    id="name"
+                    value={record.name}
+                    onChange={(e) => onInputChange(e, 'name')}
+                    tooltip="Choose Currency Name"
+                />
+              <label htmlFor="righticon">NAME</label>
+            </span>
+          </div>
+          <div className="p-field p-col-12 p-md-12">
+            <span className="p-float-label p-input-icon-right">
+                <i className="pi pi-spin pi-spinner" />
+                <InputText
+                    id="price"
+                    type='number'
+                    value={record.price}
+                    onChange={(e) => onInputChange(e, 'price')}
+                    tooltip="Choose Currency price"
+                />
+              <label htmlFor="righticon">PRICE</label>
+            </span>
+          </div>
+
+          <div className="p-field p-col-12  p-md-12">
+              <label htmlFor="category">VISIBILITY</label>
+              <Dropdown
+                value={record.visibility}
+                optionLabel="value"
+                optionValue="key"
+                options={visibilityOptions}
+                onChange={(e) => onInputChange(e, 'visibility')}
+                filter
+                showClear
+                filterBy="value"
+                placeholder="Select Visibility Status"
+              />
+          </div>
+          <div className="p-field p-col-12  p-md-12">
+              <label htmlFor="category">TYPE</label>
+              <Dropdown
+                value={record.type}
+                optionLabel="value"
+                optionValue="key"
+                options={typeOptions}
+                onChange={(e) => onInputChange(e, 'type')}
+                filter
+                showClear
+                filterBy="value"
+                placeholder="Select Type"
+              />
+          </div>
+          <div className="p-field p-col-12  p-md-12">
+              <label htmlFor="category">IS DIGITAL</label>
+              <Dropdown
+                value={record.digital}
+                optionLabel="value"
+                optionValue="key"
+                options={booleanOptions}
+                onChange={(e) => onInputChange(e, 'digital')}
+                filter
+                showClear
+                filterBy="value"
+                placeholder="Select Type"
+              />
+          </div>
+
+          <div className="p-field p-col-12  p-md-12">
+              <label htmlFor="category">RETURN POLICY</label>
+              <Dropdown
+                value={record.return_policy}
+                optionLabel="value"
+                optionValue="key"
+                options={returnOptions}
+                onChange={(e) => onInputChange(e, 'return_policy')}
+                filter
+                showClear
+                filterBy="value"
+                placeholder="Select Return Policy"
+              />
+          </div>
 
           <div className="p-field p-col-12 p-md-6">
-            <Button label='SUBMIT' onClick={saveImage}/>
+            <Button label='SUBMIT' onClick={saveProduct}/>
           </div>
-          
+
         </div>
     );
 }
@@ -92,5 +243,5 @@ const mapStateToProps = state =>({
 
 export default connect(
   mapStateToProps,
-  {addProduct} )
+  {addProduct, editProduct} )
   (AddProduct);

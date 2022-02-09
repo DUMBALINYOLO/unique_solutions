@@ -17,10 +17,6 @@ class Product(models.Model):
         ('unreturnable', 'This item is not returnable'),
     ]
 
-    BOOLEAN_CHOICES = [
-        ('yes', 'YES'),
-        ('no', 'NO')
-    ]
 
     PRICING_CHOICES = [
         ('Manual', 'Manual'),

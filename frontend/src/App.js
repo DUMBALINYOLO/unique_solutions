@@ -13,6 +13,9 @@ import {Switch, Route} from 'react-router-dom';
 import ThemeWrapper, { AppContext } from './theme/ThemeWrapper';
 import About from './public/about/AboutBag';
 import ManagementHome from './management/dashboard/ManagementHome';
+import ManagementProducts from './management/products/Products';
+
+
 
 
 import { library } from '@fortawesome/fontawesome-svg-core';
@@ -298,10 +301,14 @@ class App extends React.Component {
                 />
                 <Route
                   exact
-                  path='/managementdashboard'
+                  path='/management'
                   component={ManagementHome}
                 />
-                
+                <Route
+                  exact
+                  path='/management/products'
+                  component={ManagementProducts}
+                />
 
                 <Route component={Error} />
 
