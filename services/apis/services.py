@@ -57,9 +57,9 @@ class ServiceImageViewSet(viewsets.ModelViewSet):
 
 	def create(self, request, *args, **kwargs):
 		data = request.data.copy()
-		service = get_service(draft_request_data.get('service'))
-		draft_request_data["service"] = service.pk
-		serializer = self.get_serializer(data=draft_request_data)
+		service = get_service(data .get('service'))
+		data["service"] = service.pk
+		serializer = self.get_serializer(data=data)
 		serializer.is_valid(raise_exception=True)
 		self.perform_create(serializer)
 		headers = self.get_success_headers(serializer.data)

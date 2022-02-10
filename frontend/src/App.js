@@ -11,11 +11,14 @@ import Alerts from "./Alerts";
 import AlertMUITemplate from "react-alert-template-mui";
 import {Switch, Route} from 'react-router-dom';
 import ThemeWrapper, { AppContext } from './theme/ThemeWrapper';
-import About from './public/about/AboutBag';
+// import About from './public/about/AboutBag';
 import ManagementHome from './management/dashboard/ManagementHome';
 import ManagementProducts from './management/products/Products';
+import ManagementProduct from './management/products/Product';
 
-
+import ManagementServices from './management/services/Services';
+import ManagementService from './management/services/Service';
+import PublicProducts from './public/home/PublicProducts';
 
 
 import { library } from '@fortawesome/fontawesome-svg-core';
@@ -297,7 +300,7 @@ class App extends React.Component {
                 <Route
                   exact
                   path='/'
-                  component={About}
+                  component={PublicProducts}
                 />
                 <Route
                   exact
@@ -308,6 +311,22 @@ class App extends React.Component {
                   exact
                   path='/management/products'
                   component={ManagementProducts}
+                />
+                <Route
+                  exact
+                  path='/management/products/:id'
+                  component={ManagementProduct}
+                />
+
+                <Route
+                  exact
+                  path='/management/services'
+                  component={ManagementServices}
+                />
+                <Route
+                  exact
+                  path='/management/services/:id'
+                  component={ManagementService}
                 />
 
                 <Route component={Error} />

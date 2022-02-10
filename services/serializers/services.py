@@ -26,11 +26,12 @@ class ServiceListDetailSerializer(serializers.ModelSerializer):
 		    'fee',
 		    'category',
 		    'listed',
+			'primary_image'
 
 		]
 
 
-	
+
 
 
 
@@ -58,11 +59,3 @@ class ServiceImageListSerializer(serializers.ModelSerializer):
 			'service',
 			'image'
 		]
-
-
-
-
-
-
-
-	

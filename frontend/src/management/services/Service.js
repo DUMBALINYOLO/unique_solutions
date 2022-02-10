@@ -7,8 +7,9 @@ import Tab from '@material-ui/core/Tab';
 import { connect } from 'react-redux';
 import Typography from '@material-ui/core/Typography';
 import ManagementLayout from '../layout/ManagementLayout';
-import VisibleProducts from './VisibleProducts';
-import {getProducts} from '../../actions/products';
+import {getService, getServiceImages} from '../../actions/services';
+import ServiceDetail from './ServiceDetail';
+import Images from './Images';
 
 
 
@@ -35,16 +36,17 @@ const styles = theme => ({
   },
 });
 
-const Products = (props) => {
+
+const Service = (props) => {
   const [value, setValue] = useState(0)
-  const { classes, records } = props;
-  let visibleProducts = records.filter((product) => product.visibility === 'visible')
-  let invisibleProducts = records.filter((product) => product.visibility === 'invisible')
-  let deletedProducts = records.filter((product) => product.visibility === 'deleted')
+  const { classes, records, service, images, getServiceImages } = props;
+  console.log(service)
+
 
   useEffect(() => {
     if(!props.fetched) {
-        props.getProducts(props.token);
+        props.getService(props.match.params.id, props.token);
+        props.getServiceImages(props.match.params.id, props.token);
     }
     console.log('mount it!');
 
@@ -71,14 +73,13 @@ const Products = (props) => {
             className=' card-box-hover-rise'
 
           >
-            <Tab label="VISIBLE PRODUCTS" />
-            <Tab label="INVISIBLE PRODUCTS" />
-            <Tab label="DELETED PRODUCTS" />
+            <Tab label="SERVICE DETAIL" />
+            <Tab label="SERVICE IMAGES" />
           </Tabs>
         </AppBar>
-        {value === 0 && <TabContainer><VisibleProducts getProducts={props.getProducts} records={visibleProducts}/></TabContainer>}
-        {value === 1 && <TabContainer><VisibleProducts getProducts={props.getProducts} records={invisibleProducts}/></TabContainer>}
-        {value === 2 && <TabContainer><VisibleProducts getProducts={props.getProducts} records={deletedProducts}/></TabContainer>}
+        {value === 0 && <TabContainer><ServiceDetail service={service}/></TabContainer>}
+        {value === 1 && <TabContainer><Images images={images} getImages={getServiceImages} service={service}/></TabContainer>}
+
 
       </div>
     </ManagementLayout>
@@ -88,18 +89,20 @@ const Products = (props) => {
 
 
 const mapStateToProps = state => ({
-    records: state.products.products,
+    service: state.services.service,
+    images: state.services.serviceimages,
     token: state.auth.token,
 
   });
 
 
 
-const ProductsMapped = connect(
+const ServiceMapped = connect(
     mapStateToProps,
     {
-      getProducts
+      getService,
+      getServiceImages
     }
-  )(Products);
+  )(Service);
 
-export default withStyles(styles)(ProductsMapped);
+export default withStyles(styles)(ServiceMapped);

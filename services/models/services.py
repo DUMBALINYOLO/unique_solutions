@@ -42,6 +42,11 @@ class Service(models.Model):
                             choices=BOOLEAN_CHOICES,
                             default='YES'
                         )
+    primary_image = models.ImageField(
+                        upload_to='products/%Y/%m/%d/',
+                        null=True,
+                        blank=True
+                    )
 
     def __str__(self):
         return self.name
@@ -66,4 +71,3 @@ class ServiceImage(models.Model):
 
     def __str__(self):
         return f"<Image of {self.service.name} >"
-

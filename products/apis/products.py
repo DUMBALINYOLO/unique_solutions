@@ -57,9 +57,11 @@ class ProductImageViewSet(viewsets.ModelViewSet):
 
 	def create(self, request, *args, **kwargs):
 		data = request.data.copy()
-		product = get_product(draft_request_data.get('product'))
-		draft_request_data["product"] = product.pk
-		serializer = self.get_serializer(data=draft_request_data)
+		print(data)
+		product = get_product(data.get('product'))
+		print(product)
+		data["product"] = product.pk
+		serializer = self.get_serializer(data=data)
 		serializer.is_valid(raise_exception=True)
 		self.perform_create(serializer)
 		headers = self.get_success_headers(serializer.data)
@@ -84,24 +86,3 @@ class ProductImageViewSet(viewsets.ModelViewSet):
 
 
 		return queryset
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
- 
-
-
-

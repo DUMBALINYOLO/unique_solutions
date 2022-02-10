@@ -2,8 +2,8 @@ import React, {useState, useRef } from "react"
 import { Toast } from 'primereact/toast';
 import { useHistory } from 'react-router-dom';
 import { Search } from "@material-ui/icons";
-import SearchProduct from "./Search";
-import ProductCard from "./ProductCard";
+import SearchService from "./Search";
+import ServiceCard from "./ServiceCard";
 import { Dialog } from 'primereact/dialog';
 import {
   Grid,
@@ -20,7 +20,7 @@ import {
   InputAdornment,
   TextField
 } from '@material-ui/core';
-import AddProduct from './AddProduct';
+import AddService from './AddService';
 
 
 
@@ -43,27 +43,24 @@ const useStyles = makeStyles(theme => ({
 
 
 
-const Products = props => {
+const Services = props => {
 
   const classes = useStyles();
   const [listView, setListView] = useState('grid')
   const history = useHistory();
   const toast = useRef(null);
   const { records} = props;
-  const [productDialog, setProductDialog] = useState(false);
+  const [serviceDialog, setServiceDialog] = useState(false);
 
 
 
   const openNew = () => {
-    setProductDialog(true);
-    }
+    setServiceDialog(true);
+  }
 
     const hideDialog = () => {
-        setProductDialog(false);
+        setServiceDialog(false);
     }
-
-
-
 
 
 
@@ -72,7 +69,7 @@ const Products = props => {
   }
 
   const handleClick = id =>{
-    history.push(`/management/products/${id}`)
+    history.push(`/management/services/${id}`)
   }
 
 
@@ -84,7 +81,7 @@ const Products = props => {
         <Toast ref={toast} />
         <Toolbar>
             <TextField
-                label="Search Product"
+                label="Search Service"
                 value=''
                 className={classes.searchInput}
                 InputProps={{
@@ -102,23 +99,23 @@ const Products = props => {
             </Button>
         </Toolbar>
 
-            <SearchProduct
+            <SearchService
                 courseData={records}
                 listView={listView}
                 handleSwitchView={handleSwitchView}
               />
 
                 <Dialog
-                  visible={productDialog}
+                  visible={serviceDialog}
                   style={{ width: '800px' }}
                   header="IMAGE FORM"
                   modal
                   className="p-fluid"
                   onHide={hideDialog}
                   >
-                    <AddProduct
-                        getProducts ={props.getProducts}
-                        setProductDialog={setProductDialog}
+                    <AddService
+                        getServices ={props.getServices}
+                        setServiceDialog={setServiceDialog}
                     />
               </Dialog>
 
@@ -131,22 +128,22 @@ const Products = props => {
                 spacing={3}
               >
                 {
-                  records.map((product) => {
+                  records.map((service) => {
                     return (
                       <Grid
                         item
                         md={listView === 'list' ? 12 : 3}
                         sm={listView === 'list' ? 12 : 6}
                         xs={12}
-                        key={product.id}
+                        key={service.id}
                       >
-                        <ProductCard
+                        <ServiceCard
                           list={listView === 'list'}
-                          full_name={product.name}
-                          short_name={product.visibility}
-                          thumbnail={product.primary_image}
-                          status={product.digital}
-                          detailOpen={() => handleClick(product.id)}
+                          full_name={service.name}
+                          short_name={service.category}
+                          thumbnail={service.primary_image}
+                          status={service.listed}
+                          detailOpen={() => handleClick(service.id)}
                         />
                       </Grid>
                     );
@@ -160,4 +157,4 @@ const Products = props => {
 };
 
 
-export default Products;
+export default Services;
