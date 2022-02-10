@@ -66,7 +66,7 @@ const Header = (props) => {
                     src={projectLogo}
                   />
               </i>
-              <span>DAWINI HIGH SCHOOL</span>
+              <span>UNIQUE SOLUTIONS</span>
 
             </Button>
           </div>

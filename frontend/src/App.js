@@ -18,7 +18,8 @@ import ManagementProduct from './management/products/Product';
 
 import ManagementServices from './management/services/Services';
 import ManagementService from './management/services/Service';
-import PublicProducts from './public/home/PublicProducts';
+import PublicProducts from './public/products/PublicProducts';
+
 
 
 import { library } from '@fortawesome/fontawesome-svg-core';
