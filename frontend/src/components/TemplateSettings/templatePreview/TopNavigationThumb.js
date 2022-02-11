@@ -46,8 +46,6 @@ const TopNavigationThumb = props => {
   );
 };
 
-TopNavigationThumb.propTypes = {
-  classes: PropTypes.object.isRequired,
-};
+
 
 export default withStyles(styles)(TopNavigationThumb);

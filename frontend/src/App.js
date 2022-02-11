@@ -11,6 +11,7 @@ import Alerts from "./Alerts";
 import AlertMUITemplate from "react-alert-template-mui";
 import {Switch, Route} from 'react-router-dom';
 import ThemeWrapper, { AppContext } from './theme/ThemeWrapper';
+
 // import About from './public/about/AboutBag';
 import ManagementHome from './management/dashboard/ManagementHome';
 import ManagementProducts from './management/products/Products';

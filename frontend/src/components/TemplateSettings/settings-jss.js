@@ -1,4 +1,4 @@
-import { fade } from '@material-ui/core/styles/colorManipulator';
+import { fade } from '@mui/material/styles/colorManipulator';
 
 const panelWidth = 320;
 const styles = theme => ({

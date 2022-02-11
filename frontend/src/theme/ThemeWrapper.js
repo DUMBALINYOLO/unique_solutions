@@ -253,29 +253,11 @@ class ThemeWrapper extends React.Component {
   }
 }
 
-ThemeWrapper.propTypes = {
-  classes: PropTypes.object.isRequired,
-  children: PropTypes.node.isRequired,
-  color: PropTypes.string.isRequired,
-  mode: PropTypes.string.isRequired,
-  direction: PropTypes.string.isRequired,
-  gradient: PropTypes.bool.isRequired,
-  decoration: PropTypes.bool.isRequired,
-  bgPosition: PropTypes.string.isRequired,
-  // palette: PropTypes.object.isRequired,
-  layout: PropTypes.string.isRequired,
-  changeTheme: PropTypes.func.isRequired,
-  changeRandomTheme: PropTypes.func.isRequired,
-  changeMode: PropTypes.func.isRequired,
-  changeGradient: PropTypes.func.isRequired,
-  changeDecoration: PropTypes.func.isRequired,
-  changeBgPosition: PropTypes.func.isRequired,
-  changeLayout: PropTypes.func.isRequired,
-  changeDirection: PropTypes.func.isRequired,
-};
+
 
 // const reducer = 'ui';
 const mapStateToProps = state => ({
+
   force: state, // force state from reducer
   color: state.ui.theme,
   palette: state.ui.palette,

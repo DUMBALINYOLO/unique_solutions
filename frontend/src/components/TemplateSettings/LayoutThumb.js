@@ -1,8 +1,8 @@
 import React from 'react';
-import Radio from '@material-ui/core/Radio';
+import Radio from '@mui/material/Radio';
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
+import { withStyles } from '@mui/material/styles';
 import styles from './settings-jss';
 
 const LayoutThumbs = props => {
@@ -29,13 +29,5 @@ const LayoutThumbs = props => {
   );
 };
 
-LayoutThumbs.propTypes = {
-  value: PropTypes.string.isRequired,
-  selectedLayout: PropTypes.string.isRequired,
-  name: PropTypes.string.isRequired,
-  handleChange: PropTypes.func.isRequired,
-  classes: PropTypes.object.isRequired,
-  preview: PropTypes.node.isRequired,
-};
 
 export default withStyles(styles)(LayoutThumbs);
