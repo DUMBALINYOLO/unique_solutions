@@ -1,8 +1,9 @@
 import { alpha } from '@mui/material/styles';
-import lightGreen from '@material-ui/core/colors/lightGreen';
-import red from '@material-ui/core/colors/red';
-import amber from '@material-ui/core/colors/amber';
-import grey from '@material-ui/core/colors/grey';
+import lightGreen from '@mui/material/colors/lightGreen';
+import red from '@mui/material/colors/red';
+import amber from '@mui/material/colors/amber';
+import grey from '@mui/material/colors/grey';
+
 
 const drawerWidth = 240;
 const styles = theme => ({

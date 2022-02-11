@@ -12,7 +12,10 @@ const SidebarMenuList = props => {
 
   return (
     <List className="p-0">
-      
+      {pages.reduce(
+        (items, page) => reduceChildRoutes({ items, page, ...rest }),
+        []
+      )}
     </List>
   );
 };

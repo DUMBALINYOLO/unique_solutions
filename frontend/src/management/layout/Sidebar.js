@@ -59,6 +59,7 @@ class Sidebar extends React.Component {
       loadTransition,
       leftSidebar,
       dataMenu
+      
     } = this.props;
     const { status, anchorEl, turnDarker } = this.state;
     return (
@@ -127,5 +128,3 @@ Sidebar.defaultProps = {
 };
 
 export default withStyles(styles)(Sidebar);
-
-
