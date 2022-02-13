@@ -241,8 +241,7 @@ class LoginView(generics.GenericAPIView):
 
 
 class CreateUserAPI(generics.GenericAPIView):
-    authentication_classes = (TokenAuthentication,)
-    permission_classes = [permissions.IsAuthenticated,]
+    permission_classes = [permissions.AllowAny,]
     serializer_class = UserCreateSerializer
 
     def post(self, request, *args, **kwargs):

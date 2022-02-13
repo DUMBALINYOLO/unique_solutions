@@ -202,8 +202,8 @@ class InvoiceLine(models.Model):
     ]
 
     type = models.CharField(
-                max_length=255, 
-                null=True, 
+                max_length=255,
+                null=True,
                 default=None,
                 choices=INVOICE_TYPE_CHOICES
             )
@@ -244,8 +244,16 @@ class InvoiceLine(models.Model):
 
 
     def set_value(self):
-        self.value = self.fee.amount * D(self.quantity)
+        self.value = self.get_price() * D(self.quantity)
         return self.value
+
+
+
+    def get_price(self):
+        if self.type == 'PRODUCTS':
+            return self.product.price
+        else:
+            return self.service.fee
 
 
 
@@ -265,7 +273,7 @@ class InvoiceLine(models.Model):
     @property
     def total(self):
         '''Includes price after discount and tax'''
-        
+
         return self.subtotal
 
 

@@ -1,7 +1,41 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import { connect } from 'react-redux';
+import {authCheckState} from './actions/auth';
 import { library } from '@fortawesome/fontawesome-svg-core';
+import 'primereact/resources/primereact.min.css';
+import 'primeicons/primeicons.css';
+import "primereact/resources/themes/bootstrap4-light-purple/theme.css";
+import 'primeflex/primeflex.css';
 import './assets/base.scss';
-import ManagementHome from './management/leftsidebar/LeftSidebar';
+import ThemeContext from "./context/ThemeContext";
+import ManagementHome from './management/layout/leftsidebar/LeftSidebar';
+import getTheme from "./theme/theme";
+import { ThemeProvider} from '@mui/material/styles';
+import {
+  Routes,
+  Route,
+} from "react-router-dom";
+import Error from './Error';
+import ManagementProducts from './management/products/Products';
+import ManagementProduct from './management/products/Product';
+import ManagementServices from './management/services/Services';
+import ManagementService from './management/services/Service';
+import PublicHome from './public/home/Home';
+import PublicProducts from './public/products/Products';
+import PublicProduct from './public/products/Product';
+import PublicServices from './public/services/Services';
+import PublicService from './public/services/Service';
+import CustomerHome from './customer/home/Home';
+import CustomerProducts from './customer/products/Products';
+import CustomerProduct from './customer/products/Product';
+import CustomerServices from './customer/services/Services';
+import CustomerService from './customer/services/Service';
+
+import ResetPassword from './public/accounts/ResetPassword';
+import RegisterAccount from './public/accounts/RegisterAccount';
+import Login from './public/accounts/Auth';
+
+
 import {
   fab,
   faFacebook,
@@ -254,13 +288,153 @@ library.add(
 
 window.__MUI_USE_NEXT_TYPOGRAPHY_VARIANTS__ = true;
 
-const App = () => {
+const App = (props) => {
+  const curThemeName = localStorage.getItem("appTheme") || "light";
+
+  const [themeType, setThemeType] = useState(curThemeName);
+
+  const setThemeName = themeName => {
+    localStorage.setItem("appTheme", themeName);
+    setThemeType(themeName);
+  };
+
+  useEffect(() => {
+    // if(!props.fetched) {
+    //     props.getProducts(props.token);
+    // }
+    props.onTryAutoSignup();
+    console.log('mount it!');
+  }, []);
+
+  const theme = getTheme({
+    paletteType: themeType
+  });
+
+
   return (
 
-        <ManagementHome>
-          HIE
-        </ManagementHome>
+
+      <ThemeContext.Provider value={{ setThemeName, curThemeName }}>
+        <ThemeProvider theme={theme}>
+          <Routes>
+            <Route
+              exact
+              path="/"
+              element={<PublicHome />}
+            />
+            <Route
+              exact
+              path='/login'
+              element={<Login/>}
+            />
+            <Route
+              exact
+              path='/reset'
+              element={<ResetPassword/>}
+            />
+            <Route
+              exact
+              path='/register'
+              element={<RegisterAccount />}
+            />
+
+            <Route
+              exact
+              path="/products"
+              element={<PublicProducts />}
+            />
+            <Route
+              exact
+              path="/products/:id"
+              element={<PublicProduct />}
+            />
+            <Route
+              exact
+              path="/services"
+              element={<PublicServices />}
+            />
+            <Route
+              exact
+              path="/services/:id"
+              element={<PublicService />}
+            />
+            <Route
+              exact
+              path="/customers/"
+              element={<CustomerHome />}
+            />
+            <Route
+              exact
+              path="/customers/products"
+              element={<CustomerProducts />}
+            />
+            <Route
+              exact
+              path="/customers/products/:id"
+              element={<CustomerProduct />}
+            />
+            <Route
+              exact
+              path="/customers/services"
+              element={<CustomerServices />}
+            />
+            <Route
+              exact
+              path="/customers/services/:id"
+              element={<CustomerService />}
+            />
+            <Route
+              exact
+              path="/management"
+              element={<ManagementHome />}
+            />
+            <Route
+              exact
+              path="/management/products"
+              element={<ManagementProducts />}
+            />
+            <Route
+              exact
+              path="/management/products/:id"
+              element={<ManagementProduct />}
+            />
+            <Route
+              exact
+              path="/management/services"
+              element={<ManagementServices />}
+            />
+            <Route
+              exact
+              path="/management/services/:id"
+              element={<ManagementService />}
+            />
+
+
+            <Route
+              element={<Error />}
+            />
+
+          </Routes>
+        </ThemeProvider>
+    </ThemeContext.Provider>
   );
 }
 
-export default App;
+const mapStateToProps = state => {
+  return {
+    token: state.auth.token,
+		user: state.auth.user,
+		email: state.auth.email,
+  };
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    onTryAutoSignup: () => dispatch(authCheckState()),
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(App);

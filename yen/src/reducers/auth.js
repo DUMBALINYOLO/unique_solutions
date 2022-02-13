@@ -1,5 +1,5 @@
 
-import { updateObject } from "../utility";
+import { updateObject } from "./utility";
 import {
   AUTH_SUCCESS,
   AUTH_LOGOUT,

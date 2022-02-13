@@ -177,7 +177,7 @@ class InvoiceViewSet(viewsets.ModelViewSet):
 
 
 
-	
+
 
 
 	@action(detail=True, methods=['post', 'list', 'get', 'create'])
@@ -343,6 +343,7 @@ class CustomerProductLineViewSet(viewsets.ModelViewSet):
 			order_items = InvoiceLine.objects.filter(
 											product=product,
 											ordered=False,
+											type ="PRODUCTS",
 											invoice=order
 										)
 			if order_items.exists():

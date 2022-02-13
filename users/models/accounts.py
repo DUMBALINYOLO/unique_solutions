@@ -80,8 +80,7 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     USER_TYPE_CHOICES = [
 			('admin', 'ADMIN'),
-			('bursar', 'BURSAR'),
-            ('student', 'STUDENT'),
+            ('customer', 'CUSTOMER'),
 
 		]
 
