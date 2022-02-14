@@ -18,7 +18,11 @@ import {
     GET_CUSTOMER_SERVICE_LINES,
     ADD_CUSTOMER_SERVICE_LINE,
     GET_CUSTOMER_SERVICE_LINE,
-    MAKE_INVOICE
+    MAKE_INVOICE,
+    GET_CUSTOMER_INVOICES,
+    GET_CUSTOMER_INVOICE,
+    GET_CUSTOMER_QUOTATIONS,
+    GET_CUSTOMER_QUOTATION,
 
 } from '../types/salesTypes';
 
@@ -34,6 +38,10 @@ const initialState = {
     loading: false,
     customerservicelines: [],
     customerproductlines: [],
+    customerquotations: [],
+    customerquotation: {},
+    customerinvoices: [],
+    customerinvoice: {},
 }
 
 
@@ -54,10 +62,24 @@ export default function sales(state = initialState, action){
                 invoices : action.payload
             };
 
+
         case GET_INVOICE:
             return {
                 ...state,
                 invoice : action.payload
+            };
+
+        case GET_CUSTOMER_INVOICES:
+            return {
+                ...state,
+                customerinvoices : action.payload
+            };
+
+
+        case GET_CUSTOMER_INVOICE:
+            return {
+                ...state,
+                customerinvoice : action.payload
             };
 
 
@@ -73,6 +95,17 @@ export default function sales(state = initialState, action){
                 quotation : action.payload
             };
 
+        case GET_CUSTOMER_QUOTATIONS:
+            return {
+                ...state,
+                customerquotations : action.payload
+            };
+
+        case GET_CUSTOMER_QUOTATION:
+            return {
+                ...state,
+                customerquotation : action.payload
+            };
 
         case ADD_QUOTATION:
             return {

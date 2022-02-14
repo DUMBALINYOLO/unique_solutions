@@ -7,8 +7,8 @@ from .sales import (
 		PaymentReport,
 		CustomerProductLineViewSet,
 		CustomerServiceLineViewSet,
+		CustomerQuotationViewSet,
+		CustomerInvoiceViewSet
+		
 
 	)
-
-
-

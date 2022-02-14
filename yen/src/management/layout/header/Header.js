@@ -188,7 +188,7 @@ const TjedzaAppBar = (props) => {
               <NotificationsIcon />
             </Badge>
           </IconButton>
-          <TjedzaAvatarMenu logout={props.logout}/>
+          <TjedzaAvatarMenu logout={props.logout} userName={props.userName}/>
         </div>
       </Toolbar>
     </AppBar>
@@ -198,6 +198,7 @@ const TjedzaAppBar = (props) => {
 
 const mapStateToProps = state =>({
   token: state.auth.token,
+  userName: state.auth.userName,
 })
 
 export default connect(

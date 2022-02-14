@@ -72,6 +72,49 @@ def customer_total_due(transactions):
 
 
 
+class CustomerInvoiceViewSet(viewsets.ModelViewSet):
+	authentication_classes = (TokenAuthentication,)
+	permission_classes = [permissions.IsAuthenticated,]
+	serializer_class = InvoiceDetailSerializer
+
+
+
+	def get_queryset(self, *args, **kwargs):
+		orders = Invoice.objects.filter(
+							ComplexQueryFilter(customer= self.request.user)&
+							ComplexQueryFilter(i_type= "INVOICE")
+						).prefetch_related(
+								'validated_by',
+								'customer',
+							).order_by('-id')
+
+		return orders
+
+
+
+class CustomerQuotationViewSet(viewsets.ModelViewSet):
+	authentication_classes = (TokenAuthentication,)
+	permission_classes = [permissions.IsAuthenticated,]
+	serializer_class = InvoiceDetailSerializer
+
+
+
+	def get_queryset(self, *args, **kwargs):
+		orders = Invoice.objects.filter(
+							ComplexQueryFilter(customer= self.request.user)&
+							ComplexQueryFilter(i_type= "QUOTATION")
+
+						).prefetch_related(
+								'validated_by',
+								'customer',
+							).order_by('-id')
+
+		return orders
+
+
+
+
+
 class QuotationViewSet(viewsets.ModelViewSet):
 	authentication_classes = [TokenAuthentication, ]
 	permission_classes = [permissions.IsAuthenticated,]
@@ -110,6 +153,9 @@ class QuotationViewSet(viewsets.ModelViewSet):
 											'validated_by',
 											'customer',
 											'bookkeeper',
+
+										).filter(
+											ComplexQueryFilter(i_type="QUOTATION")
 
 										).order_by('-id')
 

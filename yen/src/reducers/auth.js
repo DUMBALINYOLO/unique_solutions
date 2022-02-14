@@ -33,6 +33,8 @@ const initialState = {
   email: null,
   userRole: null,
   userName: null,
+  firstName: null,
+  lastName: null,
   error: null,
   loading: false,
   user: null,
@@ -56,6 +58,8 @@ const authSuccess = (state, action) => {
     email: action.user.email,
     userRole: action.user.userRole,
     userName: action.user.userName,
+    firstName: action.user.firstName,
+    lastName: action.user.lastName,
     error: null,
     loading: false
   });

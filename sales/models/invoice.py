@@ -267,7 +267,8 @@ class InvoiceLine(models.Model):
     @property
     def subtotal(self):
         '''Returns the value of the line after the discount and before taxes'''
-        pass
+
+        return self.quantity * self.get_price()
 
 
     @property
@@ -275,8 +276,3 @@ class InvoiceLine(models.Model):
         '''Includes price after discount and tax'''
 
         return self.subtotal
-
-
-    @property
-    def price(self):
-        pass

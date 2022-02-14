@@ -1,25 +1,30 @@
 import axios from 'axios';
 import {
-    GET_PAYMENTS,
-    GET_PAYMENT,
-    ADD_PAYMENT,
-    GET_QUOTATIONS,
-    GET_QUOTATION,
-    ADD_QUOTATION,
-    EDIT_QUOTATION,
-    GET_INVOICES,
-    GET_INVOICE,
-    ADD_INVOICE,
-    GET_INVOICE_LINES,
-    PAY,
-    GET_PAYMENT_REPORTS,
-    GET_CUSTOMER_PRODUCT_LINES,
-    ADD_CUSTOMER_PRODUCT_LINE,
-    GET_CUSTOMER_PRODUCT_LINE,
-    GET_CUSTOMER_SERVICE_LINES,
-    ADD_CUSTOMER_SERVICE_LINE,
-    GET_CUSTOMER_SERVICE_LINE,
-    MAKE_INVOICE
+  GET_PAYMENTS,
+  GET_PAYMENT,
+  ADD_PAYMENT,
+  GET_QUOTATIONS,
+  GET_QUOTATION,
+  ADD_QUOTATION,
+  EDIT_QUOTATION,
+  GET_INVOICES,
+  GET_INVOICE,
+  ADD_INVOICE,
+  GET_INVOICE_LINES,
+  PAY,
+  GET_PAYMENT_REPORTS,
+  GET_CUSTOMER_PRODUCT_LINES,
+  ADD_CUSTOMER_PRODUCT_LINE,
+  GET_CUSTOMER_PRODUCT_LINE,
+  GET_CUSTOMER_SERVICE_LINES,
+  ADD_CUSTOMER_SERVICE_LINE,
+  GET_CUSTOMER_SERVICE_LINE,
+  MAKE_INVOICE,
+  GET_CUSTOMER_INVOICES,
+  GET_CUSTOMER_INVOICE,
+  GET_CUSTOMER_QUOTATIONS,
+  GET_CUSTOMER_QUOTATION,
+
 
 } from '../types/salesTypes';
 import {
@@ -30,6 +35,8 @@ import {
     paymentreportsURL,
     customerproductlinesURL,
     customerservicelinesURL,
+    customerinvoicesURL,
+    customerquotationsURL,
 
 } from '../constants';
 
@@ -87,6 +94,40 @@ export const getInvoice = (id, token) => dispatch =>{
 }
 
 
+export const getCustomerInvoices = (token) => dispatch => {
+    let headers = axios.defaults.headers = {
+      "Content-Type": "application/json",
+      Authorization: `Token ${token}`
+    };
+    axios.get(customerinvoicesURL, headers)
+        .then(res => {
+            dispatch({
+                type: GET_CUSTOMER_INVOICES,
+                payload: res.data
+            });
+        }).catch(err => console.log(err))
+}
+
+
+
+
+
+export const getCustomerInvoice = (id, token) => dispatch =>{
+      let headers = axios.defaults.headers = {
+        "Content-Type": "application/json",
+        Authorization: `Token ${token}`
+      };
+      axios.get(`${customerinvoicesURL}${id}`)
+        .then(res => {
+            dispatch({
+                type: GET_CUSTOMER_INVOICE,
+                payload: res.data
+            });
+        }).catch(err => console.log(err))
+
+}
+
+
 export const addInvoice= (invoice, token) => dispatch => {
     let headers = axios.defaults.headers = {
       "Content-Type": "application/json",
@@ -121,8 +162,6 @@ export const getQuotations = (token) => dispatch => {
 
 
 
-
-
 export const getQuotation = (id, token) => dispatch =>{
       let headers = axios.defaults.headers = {
         "Content-Type": "application/json",
@@ -132,6 +171,38 @@ export const getQuotation = (id, token) => dispatch =>{
         .then(res => {
             dispatch({
                 type: GET_QUOTATION,
+                payload: res.data
+            });
+        }).catch(err => console.log(err))
+
+}
+
+
+export const getCustomerQuotations = (token) => dispatch => {
+    let headers = axios.defaults.headers = {
+      "Content-Type": "application/json",
+      Authorization: `Token ${token}`
+    };
+    axios.get(customerquotationsURL, headers)
+        .then(res => {
+            dispatch({
+                type: GET_CUSTOMER_QUOTATIONS,
+                payload: res.data
+            });
+        }).catch(err => console.log(err))
+}
+
+
+
+export const getCustomerQuotation = (id, token) => dispatch =>{
+      let headers = axios.defaults.headers = {
+        "Content-Type": "application/json",
+        Authorization: `Token ${token}`
+      };
+      axios.get(`${customerquotationsURL}${id}`)
+        .then(res => {
+            dispatch({
+                type: GET_CUSTOMER_QUOTATION,
                 payload: res.data
             });
         }).catch(err => console.log(err))

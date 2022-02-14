@@ -7,13 +7,16 @@ from .apis import (
 		# PaymentReport,
 		CustomerProductLineViewSet,
 		CustomerServiceLineViewSet,
-
+		CustomerInvoiceViewSet,
+		CustomerQuotationViewSet
 	)
 
 
 router = DefaultRouter()
 
 
+router.register('customer-quotations', CustomerQuotationViewSet, basename='customer-quotations')
+router.register('customer-invoices', CustomerInvoiceViewSet, basename='customer-invoices')
 router.register('quotations', QuotationViewSet, basename='quotations')
 router.register('invoices', InvoiceViewSet, basename='invoices')
 router.register('invoice-lines', InvoiceLineViewSet, basename='invoice-lines')

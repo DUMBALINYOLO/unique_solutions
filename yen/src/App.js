@@ -30,10 +30,11 @@ import CustomerProducts from './customer/products/Products';
 import CustomerProduct from './customer/products/Product';
 import CustomerServices from './customer/services/Services';
 import CustomerService from './customer/services/Service';
-
+import CustomerInvoices from './customer/invoices/Invoices';
 import ResetPassword from './public/accounts/ResetPassword';
 import RegisterAccount from './public/accounts/RegisterAccount';
 import Login from './public/accounts/Auth';
+import ManagementInvoices from './management/invoices/Invoices';
 
 
 import {
@@ -385,6 +386,11 @@ const App = (props) => {
             />
             <Route
               exact
+              path="/customers/invoices"
+              element={<CustomerInvoices />}
+            />
+            <Route
+              exact
               path="/management"
               element={<ManagementHome />}
             />
@@ -408,7 +414,11 @@ const App = (props) => {
               path="/management/services/:id"
               element={<ManagementService />}
             />
-
+            <Route
+              exact
+              path="/management/invoices"
+              element={<ManagementInvoices />}
+            />
 
             <Route
               element={<Error />}

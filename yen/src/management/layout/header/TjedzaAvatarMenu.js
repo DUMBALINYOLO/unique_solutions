@@ -72,10 +72,6 @@ const TjedzaAvatarMenu = props => {
             }}
             variant="dot"
           >
-            <Avatar
-              alt="Tjedza"
-              src="https://lh5.googleusercontent.com/-WqhFe4eMggE/AAAAAAAAAAI/AAAAAAAAAAA/ACHi3rdFUa5CK9Wi6g5qd8ZUt6apKFYSwA/photo.jpg?sz=328"
-            />
           </TjedzaAvatarBadge>
         </ListItemAvatar>
         <Hidden implementation="css" smDown>
@@ -83,7 +79,7 @@ const TjedzaAvatarMenu = props => {
             primary={
               <React.Fragment>
                 <Typography component="span" variant="subtitle2">
-                  Tjedza
+                  {props.userName}
                 </Typography>
               </React.Fragment>
             }

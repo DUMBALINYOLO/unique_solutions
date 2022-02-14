@@ -12,16 +12,19 @@ import ListItem from '@mui/material/ListItem';
 import Divider from '@mui/material/Divider';
 import avatar4 from '../../../assets/images/avatars/avatar4.jpg';
 import { withStyles } from '@mui/styles';
+import {connect } from 'react-redux';
 
 
 
 
-const HeaderUserbox = () => {
+
+const HeaderUserbox = (props) => {
 
   const history = useNavigate();
+  const {firstName, lastName} = props;
   const user = {
-    name: 'Mphilisi',
-    sub: 'Mpofu',
+    name: firstName,
+    sub: lastName,
   }
 
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -103,4 +106,14 @@ const HeaderUserbox = () => {
   );
 }
 
-export default HeaderUserbox;
+
+const mapStateToProps = state =>({
+  token: state.auth.token,
+  firstName: state.auth.firstName,
+  lastName: state.auth.lastName,
+})
+
+export default connect(
+  mapStateToProps,
+  {logout} )
+( HeaderUserbox);

@@ -5,6 +5,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Grid  from '@mui/material/Grid';
 import { Dialog } from 'primereact/dialog';
 import Order from './Order';
+import { Toolbar } from 'primereact/toolbar';
+import { Button as PrimeButton } from 'primereact/button';
 
 
 const ProductDetail = (props) => {
@@ -26,6 +28,19 @@ const ProductDetail = (props) => {
 
   const hideDialog = () => {
         setOrderDialog(false);
+  }
+
+  const rightToolbarTemplate = () => {
+      return (
+          <React.Fragment>
+
+              <PrimeButton
+                label="ADD TO CART"
+                className="p-button-info"
+                onClick={openNew}
+              />
+          </React.Fragment>
+      )
   }
 
 
@@ -67,16 +82,11 @@ const ProductDetail = (props) => {
                 {type}
               </p>
             </div>
-            <div className="d-flex justify-content-between pt-3">
-
-              <Button
-                size="small"
-                variant="contained"
-                onClick={openNew}
-                color="primary">
-                ADD TO CART
-              </Button>
-            </div>
+            <Toolbar
+              className="mb-4"
+              style={{backgroundColor:"#283747"}}
+              right={rightToolbarTemplate}>
+            </Toolbar>
 
 
           </Card>
