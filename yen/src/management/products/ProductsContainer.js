@@ -64,6 +64,7 @@ const Products = (props) => {
           <AddProduct
               getProducts ={props.getProducts}
               setProductDialog={setProductDialog}
+              setSubmitted={props.setSubmitted}
           />
       </Dialog>
       <Grid

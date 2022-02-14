@@ -31,7 +31,7 @@ const ProductContainer = (props) => {
 
 
   const handleClick = id =>{
-      navigate(`/products/${id}`)
+      navigate(`/customers/products/${id}`)
   }
 
   const handleChangePrice = (event, value) => {

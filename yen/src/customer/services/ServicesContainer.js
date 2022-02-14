@@ -14,11 +14,11 @@ import 'aos/dist/aos.css';
 import EmptyView from './EmptyView';
 
 
-const ProductContainer = (props) => {
+const ServiceContainer = (props) => {
   const navigate = useNavigate();
   const {records} = props;
-  const [products, setProducts] = useState(records);
-  const [filteredProducts, setFilteredProducts] = useState(records);
+  const [services, setServices] = useState(records);
+  const [filteredServices, setFilteredServices] = useState(records);
   const [activeCategory, setActiveCategory] = useState('all');
   const [selectedPrice, setSelectedPrice] = useState([1, 1000000]);
   const [resultsFound, setResultsFound] = useState(true);
@@ -31,7 +31,7 @@ const ProductContainer = (props) => {
 
 
   const handleClick = id =>{
-      navigate(`/products/${id}`)
+      navigate(`/customers/services/${id}`)
   }
 
   const handleChangePrice = (event, value) => {
@@ -54,8 +54,8 @@ const ProductContainer = (props) => {
         data-aos="zoom-in-up"
       >
         <Filter
-          products={products}
-          setFilteredProducts={setFilteredProducts}
+          services={services}
+          setFilteredServices={setFilteredServices}
           activeCategory={activeCategory}
           setActiveCategory={setActiveCategory}
           selectedPrice={selectedPrice}
@@ -73,18 +73,18 @@ const ProductContainer = (props) => {
               data-aos="zoom-in-up"
             >
             {
-              filteredProducts.map((product) => {
+              filteredServices.map((service) => {
                     return (
 
-                          <Grid item xs={12} data-aos="flip-up" sm={6} md={4} key={product.id}>
+                          <Grid item xs={12} data-aos="flip-up" sm={6} md={4} key={service.id}>
                             <Card data-aos="flip-left" className="card-transparent bg-royal card-box-hover-rise mb-4">
                               <div className="card-img-wrapper">
                                 <div className="card-badges card-badges-bottom">
-                                  <div className="badge badge-warning badge-pill">${product.price}</div>
+                                  <div className="badge badge-warning badge-pill">${service.price}</div>
                                 </div>
                                 <img
                                   data-aos="flip-right"
-                                  src={product.primary_image}
+                                  src={service.primary_image}
                                   className="card-img-top rounded"
                                   alt="..."
                                   style={{height: '250px'}}
@@ -92,14 +92,14 @@ const ProductContainer = (props) => {
                               </div>
                               <div className="card-body text-center">
                                 <h5 className="card-title font-weight-bold font-size-lg">
-                                  {product.name}
+                                  {service.name}
                                 </h5>
                                 <Button
                                   size="small"
                                   variant="outlined"
                                   color="primary"
                                   className="mt-1"
-                                  onClick={() => handleClick(product.id)}
+                                  onClick={() => handleClick(service.id)}
                                   >
                                   View Details
                                 </Button>
@@ -120,4 +120,4 @@ const ProductContainer = (props) => {
 };
 
 
-export default ProductContainer;
+export default ServiceContainer;

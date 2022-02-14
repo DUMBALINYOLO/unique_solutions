@@ -34,8 +34,8 @@ import PriceFilter from "./PriceFilter";
 
 const Filter = (props) => {
   const {
-    products,
-    setFilteredProducts,
+    services,
+    setFilteredServices,
     activeCategory,
     setActiveCategory,
     selectedPrice,
@@ -45,12 +45,12 @@ const Filter = (props) => {
 
   useEffect(() => {
     if (activeCategory === 'all'){
-      setFilteredProducts(products);
+      setFilteredServices(services);
       return;
     }
 
-    const filtered = products.filter((product) => product.type===activeCategory)
-    setFilteredProducts(filtered);
+    const filtered = services.filter((service) => service.category ===activeCategory)
+    setFilteredServices(filtered);
 
     !filtered.length ? setResultsFound(false) : setResultsFound(true);
 
@@ -62,16 +62,17 @@ const Filter = (props) => {
 
     const minPrice = selectedPrice[0];
     const maxPrice = selectedPrice[1];
-    const updatedList = products.filter(
-      (item) => item.price >= minPrice && item.price <= maxPrice
+    const updatedList = services.filter(
+      (item) => item.fee >= minPrice && item.fee <= maxPrice
     );
 
     console.log(updatedList)
-    setFilteredProducts(updatedList);
+    setFilteredServices(updatedList);
     !updatedList.length ? setResultsFound(false) : setResultsFound(true);
 
 
   }, [selectedPrice]);
+
 
 
 
@@ -88,54 +89,33 @@ const Filter = (props) => {
 
           <h4 style={{fontSize : '10px',}}>ALL</h4>
         </MenuItem>
-        <MenuItem onClick={() => setActiveCategory('art')}>
+        <MenuItem onClick={() => setActiveCategory('REPAIR')}>
           <ListItemIcon >
             <FcGenealogy  />
           </ListItemIcon>
 
-          <h4 style={{fontSize : '10px',}}>ART</h4>
+          <h4 style={{fontSize : '10px',}}>REPAIR</h4>
         </MenuItem>
-        <MenuItem onClick={() => setActiveCategory('automative')}>
+        <MenuItem onClick={() => setActiveCategory('PRINTING')}>
           <ListItemIcon >
             <FcAutomotive  />
           </ListItemIcon>
 
-          <h4 style={{fontSize : '10px',}}>AUTOMATIVE</h4>
+          <h4 style={{fontSize : '10px',}}>PRINTING</h4>
         </MenuItem>
-        <MenuItem onClick={() => setActiveCategory('computer')}>
+        <MenuItem onClick={() => setActiveCategory('PHOTOCOPYING')}>
           <ListItemIcon >
             <FiAirplay  />
           </ListItemIcon>
 
-          <h4 style={{fontSize : '10px',}}>COMPUTER</h4>
+          <h4 style={{fontSize : '10px',}}>PHOTOCOPYING</h4>
         </MenuItem>
-        <MenuItem onClick={() => setActiveCategory('electronic')}>
+        <MenuItem onClick={() => setActiveCategory('LAMINATING')}>
           <ListItemIcon >
             <FcElectronics  />
           </ListItemIcon>
 
-          <h4 style={{fontSize : '10px',}}>ELECTRONIC</h4>
-        </MenuItem>
-        <MenuItem onClick={() => setActiveCategory('fashion')}>
-          <ListItemIcon >
-            <FcVoicemail  />
-          </ListItemIcon>
-
-          <h4 style={{fontSize : '10px',}}>FASHION</h4>
-        </MenuItem>
-        <MenuItem onClick={() => setActiveCategory('industrial_and_scientific')}>
-          <ListItemIcon >
-            <FcScatterPlot />
-          </ListItemIcon>
-          <h4 style={{fontSize : '10px',}}>INDUSTRIAL & SCIENTIFIC</h4>
-
-        </MenuItem>
-        <MenuItem onClick={() => setActiveCategory('video_game')}>
-          <ListItemIcon >
-            <FcCamcorderPro  />
-          </ListItemIcon>
-          <h4 style={{fontSize : '10px',}}>VIDEO GAME</h4>
-
+          <h4 style={{fontSize : '10px',}}>LAMINATING</h4>
         </MenuItem>
         <div style={{padding: '5px'}}>
           <Button label="FILTER WITH PRICE" className="p-button-info" />

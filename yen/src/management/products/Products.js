@@ -39,9 +39,10 @@ const styles = theme => ({
 const Products = (props) => {
   const [value, setValue] = useState(0)
   const { classes, records } = props;
-  let visibleProducts = records.filter((product) => product.visibility === 'visible')
-  let invisibleProducts = records.filter((product) => product.visibility === 'invisible')
-  let deletedProducts = records.filter((product) => product.visibility === 'deleted')
+  let visibleProducts = records.filter((product) => product.visibility === 'visible');
+  let invisibleProducts = records.filter((product) => product.visibility === 'invisible');
+  let deletedProducts = records.filter((product) => product.visibility === 'deleted');
+  const [submitted, setSubmitted] = useState(false);
 
   useEffect(() => {
     if(!props.fetched) {
@@ -50,7 +51,7 @@ const Products = (props) => {
     console.log('mount it!');
 
 
-  }, []);
+  }, [submitted]);
 
 
   const handleChange = (event, value) => {
@@ -76,9 +77,9 @@ const Products = (props) => {
             <Tab label="DELETED PRODUCTS" />
           </Tabs>
         </AppBar>
-        {value === 0 && <TabContainer><ProductsContainer getProducts={props.getProducts} records={visibleProducts}/></TabContainer>}
-        {value === 1 && <TabContainer><ProductsContainer getProducts={props.getProducts} records={invisibleProducts}/></TabContainer>}
-        {value === 2 && <TabContainer><ProductsContainer getProducts={props.getProducts} records={deletedProducts}/></TabContainer>}
+        {value === 0 && <TabContainer><ProductsContainer setSubmitted={setSubmitted} getProducts={props.getProducts} records={visibleProducts}/></TabContainer>}
+        {value === 1 && <TabContainer><ProductsContainer setSubmitted={setSubmitted} getProducts={props.getProducts} records={invisibleProducts}/></TabContainer>}
+        {value === 2 && <TabContainer><ProductsContainer setSubmitted={setSubmitted} getProducts={props.getProducts} records={deletedProducts}/></TabContainer>}
 
       </div>
     </ManagementLayout>

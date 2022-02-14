@@ -88,11 +88,13 @@ const AddProduct = (props) => {
         else {
             props.addProduct(_record, token)
             console.log(_record)
+            props.setSubmitted(true);
             props.getProducts(token);
 
         }
         props.setProductDialog(false);
         setRecord(emptyProduct);
+        props.setSubmitted(false);
     }
 
 

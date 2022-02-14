@@ -7,7 +7,7 @@ SECRET_KEY = 'django-insecure-%rq#x1alb#(1qdcrgrkklz_6whb21x6=tp*vpf3kc1k_($qgt8
 
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -112,10 +112,12 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-CORS_ALLOWED_ORIGINS = [
-    'http://localhost:3000',
-    'http://127.0.0.1:3000',
-]
+# CORS_ALLOWED_ORIGINS = [
+#     'http://localhost:3000',
+#     'http://127.0.0.1:3000',
+# ]
+
+CORS_ORIGIN_ALLOW_ALL = True
 
 os.environ["DJANGO_ALLOW_ASYNC_UNSAFE"] = "true"
 
