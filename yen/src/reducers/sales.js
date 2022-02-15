@@ -23,6 +23,10 @@ import {
     GET_CUSTOMER_INVOICE,
     GET_CUSTOMER_QUOTATIONS,
     GET_CUSTOMER_QUOTATION,
+    ACCEPT_INVOICE,
+    REJECT_INVOICE,
+    GET_CUSTOMER_PAYMENTS,
+    GET_CUSTOMER_CART,
 
 } from '../types/salesTypes';
 
@@ -42,6 +46,8 @@ const initialState = {
     customerquotation: {},
     customerinvoices: [],
     customerinvoice: {},
+    customerpayments: [],
+    customercart: {},
 }
 
 
@@ -49,6 +55,18 @@ const initialState = {
 export default function sales(state = initialState, action){
 
     switch(action.type){
+        case GET_CUSTOMER_CART:
+            return {
+                ...state,
+                customercart : action.payload
+            };
+
+        case GET_CUSTOMER_PAYMENTS:
+            return {
+                ...state,
+                customerpayments : action.payload
+            };
+
 
         case GET_INVOICE_LINES:
             return {
@@ -128,6 +146,16 @@ export default function sales(state = initialState, action){
             return {
                 ...state,
                 payment: [...state.payments, action.payload]
+            }
+        case ACCEPT_INVOICE:
+            return {
+                ...state,
+                invoice: [...state.invoices, action.payload]
+            }
+        case REJECT_INVOICE:
+            return {
+                ...state,
+                invoice: [...state.invoices, action.payload]
             }
         case MAKE_INVOICE:
             return {

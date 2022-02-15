@@ -28,6 +28,7 @@ const Buy = (props) => {
         else {
             props.addCustomerProductLine(_record, token)
             console.log(token)
+            console.log(_record)
         }
         props.orderDialog(false)
     }

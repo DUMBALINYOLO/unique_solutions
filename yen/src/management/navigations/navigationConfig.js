@@ -62,6 +62,21 @@ const navigationConfig = [
           },
         ],
       },
+      {
+        id: "quotation",
+        title: "QUOTATIONS",
+        type: "collapse",
+        icon: <BsGraphUp />,
+        children: [
+          {
+            id: "quotation",
+            title: "QUOTATIONS",
+            type: "item",
+            url: '/management/quotations',
+            exact: true,
+          },
+        ],
+      },
 
       {
         id: "PRODUCTS",

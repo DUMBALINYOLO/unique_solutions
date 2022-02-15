@@ -25,12 +25,11 @@ class InvoiceLineCreateSerializer(serializers.ModelSerializer):
 		    'quantity',
 		]
 
-		
-
 
 
 class InvoiceLineListSerializer(serializers.ModelSerializer):
-	fee = StringSerializer()
+	service = StringSerializer()
+	product = StringSerializer()
 
 
 	class Meta:
@@ -39,8 +38,10 @@ class InvoiceLineListSerializer(serializers.ModelSerializer):
 			'id',
 			'type',
 		    'service',
+			'reference_number',
 		    'product',
 		    'quantity',
+			'price'
 		]
 
 
@@ -72,6 +73,7 @@ class InvoiceDetailSerializer(serializers.ModelSerializer):
 			'id',
 			'tracking_number',
 			'customer',
+			'company_status',
 			'bookkeeper',
 			'due',
 			'date',
@@ -109,13 +111,11 @@ class PaymentListDetailSerializer(serializers.ModelSerializer):
 	invoice = StringSerializer()
 	bookkeeper = StringSerializer()
 
-
 	class Meta:
 
 		model = Payment
 		fields = [
 			'id',
-			'reference_number',
 			'amount',
 			'date',
 			'invoice',
@@ -123,4 +123,6 @@ class PaymentListDetailSerializer(serializers.ModelSerializer):
 			'bookkeeper',
 			'comments',
 			'due',
+			'reference_number',
+
 		]

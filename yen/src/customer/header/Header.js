@@ -115,15 +115,6 @@ const TjedzaAppBar = (props) => {
             </Button>
             <Button
               color="inherit"
-              className=" px-4 py-2 text-capitalize"
-              component={Link}
-              to='/customers/quotations'
-            >
-                <FiActivity className="font-size-xxl" style={{padding: '6px'}}/>
-               QUOTATIONS
-            </Button>
-            <Button
-              color="inherit"
               component={Link}
               to='/customers/payments'
               className=" px-4 py-2 text-capitalize"
@@ -134,7 +125,7 @@ const TjedzaAppBar = (props) => {
             <Button
               color="inherit"
               component={Link}
-              to='/logout'
+              to='/customers/cart'
               className=" px-4 py-2 text-capitalize"
             >
               <FiBarChart2 className="font-size-xxl" style={{padding: '6px'}}/>

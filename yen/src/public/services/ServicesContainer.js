@@ -80,7 +80,7 @@ const ServiceContainer = (props) => {
                             <Card data-aos="flip-left" className="card-transparent bg-royal card-box-hover-rise mb-4">
                               <div className="card-img-wrapper">
                                 <div className="card-badges card-badges-bottom">
-                                  <div className="badge badge-warning badge-pill">${service.price}</div>
+                                  <div className="badge badge-warning badge-pill">${service.fee}</div>
                                 </div>
                                 <img
                                   data-aos="flip-right"

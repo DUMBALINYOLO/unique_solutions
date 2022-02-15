@@ -47,10 +47,10 @@ const styles = theme => ({
 const Invoices = (props) => {
   const [value, setValue] = useState(0)
   const { classes, email,token, userName, invoices} = props;
-  const voidedInvoices = invoices.filter((invoice) => invoice.status==='voided')
-  const unpaidInvoices = invoices.filter((invoice) => invoice.status==='unpaid')
-  const partiallyInvoices = invoices.filter((invoice) => invoice.status==='partially')
-  const fullyInvoices = invoices.filter((invoice) => invoice.status==='fully')
+  const voidedInvoices = invoices.filter((invoice) => invoice.status==='voided' && invoice.company_status === 'accepted')
+  const unpaidInvoices = invoices.filter((invoice) => invoice.status==='unpaid' && invoice.company_status === 'accepted')
+  const partiallyInvoices = invoices.filter((invoice) => invoice.status==='partially' && invoice.company_status === 'accepted')
+  const fullyInvoices = invoices.filter((invoice) => invoice.status==='fully' && invoice.company_status === 'accepted')
 
 
   useEffect(() =>{

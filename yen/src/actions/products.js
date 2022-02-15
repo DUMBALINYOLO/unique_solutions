@@ -69,6 +69,7 @@ export const addProduct = (product, token) => dispatch => {
         }).catch(err => {
           dispatch(returnErrors(err.response.data, err.response.status));
         });
+        
 }
 
 
@@ -129,7 +130,7 @@ export const addProductImage = (image, token) => dispatch => {
 
 
 export const editProductImage = (id, image, token) => dispatch => {
-    
+
     axios.defaults.headers = {
       "Content-Type": "application/json",
       Authorization: `Token ${token}`
@@ -145,5 +146,3 @@ export const editProductImage = (id, image, token) => dispatch => {
             });
         }).catch(err => console.log(err))
 }
-
-

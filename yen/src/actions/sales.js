@@ -24,6 +24,10 @@ import {
   GET_CUSTOMER_INVOICE,
   GET_CUSTOMER_QUOTATIONS,
   GET_CUSTOMER_QUOTATION,
+  ACCEPT_INVOICE,
+  REJECT_INVOICE,
+  GET_CUSTOMER_PAYMENTS,
+  GET_CUSTOMER_CART,
 
 
 } from '../types/salesTypes';
@@ -37,11 +41,47 @@ import {
     customerservicelinesURL,
     customerinvoicesURL,
     customerquotationsURL,
+    customerpaymentsURL,
+    customercartURL
 
 } from '../constants';
 
 
 import { createMessage, returnErrors } from './messages';
+
+
+
+export const getCustomerCart = (token) => dispatch => {
+    let headers = axios.defaults.headers = {
+      "Content-Type": "application/json",
+      Authorization: `Token ${token}`
+    };
+    axios.get(customercartURL, headers)
+        .then(res => {
+            dispatch({
+                type: GET_CUSTOMER_CART,
+                payload: res.data
+            });
+        }).catch(err => console.log(err))
+}
+
+
+
+
+export const getCustomerPayments = (token) => dispatch => {
+    let headers = axios.defaults.headers = {
+      "Content-Type": "application/json",
+      Authorization: `Token ${token}`
+    };
+    axios.get(customerpaymentsURL, headers)
+        .then(res => {
+            dispatch({
+                type: GET_CUSTOMER_PAYMENTS,
+                payload: res.data
+            });
+        }).catch(err => console.log(err))
+}
+
 
 
 export const getPaymentReports = (token) => dispatch => {
@@ -143,7 +183,6 @@ export const addInvoice= (invoice, token) => dispatch => {
           dispatch(returnErrors(err.response.data, err.response.status));
         });
 }
-
 
 
 export const getQuotations = (token) => dispatch => {
@@ -293,6 +332,41 @@ export const pay = (id,payment, token) => dispatch => {
         .then(res => {
             dispatch({
                 type: PAY,
+                payload: res.data
+            });
+        }).catch(err => console.log(err))
+}
+
+
+
+export const acceptInvoice = (id,invoice, token) => dispatch => {
+    let headers = axios.defaults.headers = {
+        "Content-Type": "application/json",
+        Authorization: `Token ${token}`,
+        'Accept': 'application/json',
+      };
+    axios.post(`${invoicesURL}${id}/accept/`,invoice, headers)
+        .then(res => {
+            dispatch({
+                type: ACCEPT_INVOICE,
+                payload: res.data
+            });
+        }).catch(err => console.log(err))
+}
+
+
+
+
+export const rejectInvoice = (id,invoice, token) => dispatch => {
+    let headers = axios.defaults.headers = {
+        "Content-Type": "application/json",
+        Authorization: `Token ${token}`,
+        'Accept': 'application/json',
+      };
+    axios.post(`${invoicesURL}${id}/reject/`,invoice, headers)
+        .then(res => {
+            dispatch({
+                type: REJECT_INVOICE,
                 payload: res.data
             });
         }).catch(err => console.log(err))
