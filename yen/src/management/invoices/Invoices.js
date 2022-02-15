@@ -9,8 +9,9 @@ import Typography from '@mui/material/Typography';
 import AOS from "aos";
 import 'aos/dist/aos.css';
 import InvoicesContainer from './InvoicesContainer';
-import {getInvoices} from '../../actions/sales';
+import {getInvoices, acceptInvoice, rejectInvoice} from '../../actions/sales';
 import ManagementLayout from "../layout/leftsidebar/LeftSidebar";
+import PendingInvoices from './PendingInvoices';
 
 
 
@@ -46,11 +47,13 @@ const styles = theme => ({
 
 const Invoices = (props) => {
   const [value, setValue] = useState(0)
-  const { classes, email,token, userName, invoices} = props;
-  const voidedInvoices = invoices.filter((invoice) => invoice.status==='voided')
-  const unpaidInvoices = invoices.filter((invoice) => invoice.status==='unpaid')
-  const partiallyInvoices = invoices.filter((invoice) => invoice.status==='partially')
-  const fullyInvoices = invoices.filter((invoice) => invoice.status==='fully')
+  const { classes, email,token, userName, invoices, acceptInvoice, rejectInvoice, getInvoices} = props;
+  const voidedInvoices = invoices.filter((invoice) => invoice.status==='voided' && invoice.company_status === 'accepted')
+  const unpaidInvoices = invoices.filter((invoice) => invoice.status==='unpaid' && invoice.company_status === 'accepted')
+  const partiallyInvoices = invoices.filter((invoice) => invoice.status==='partially' && invoice.company_status === 'accepted')
+  const fullyInvoices = invoices.filter((invoice) => invoice.status==='fully' && invoice.company_status === 'accepted')
+  const pendingInvoices = invoices.filter((invoice) => invoice.company_status==='pending')
+  const rejectedInvoices = invoices.filter((invoice) => invoice.company_status==='rejected')
 
 
   useEffect(() =>{
@@ -88,6 +91,8 @@ const Invoices = (props) => {
                 textColor="secondary"
                 className={classes.tabs}
               >
+                <Tab label="PENDING" />
+                <Tab label="REJECTED" />
                 <Tab label="UNPAID" />
                 <Tab label="PARTIALLY PAID" />
                 <Tab label="FULLY PAID" />
@@ -95,10 +100,12 @@ const Invoices = (props) => {
 
               </Tabs>
             </AppBar>
-            {value === 0 && <TabContainer><InvoicesContainer invoices={unpaidInvoices} email={email} userName={userName} /></TabContainer>}
-            {value === 1 && <TabContainer><InvoicesContainer invoices={partiallyInvoices} email={email} userName={userName}/></TabContainer>}
-            {value === 2 && <TabContainer><InvoicesContainer invoices={fullyInvoices} email={email} userName={userName}/></TabContainer>}
-            {value === 3 && <TabContainer><InvoicesContainer invoices={voidedInvoices} email={email} userName={userName}/></TabContainer>}
+            {value === 0 && <TabContainer><PendingInvoices token={token} getInvoices={getInvoices} acceptInvoice={acceptInvoice} rejectInvoice ={rejectInvoice} invoices={pendingInvoices} email={email} userName={userName} /></TabContainer>}
+            {value === 1 && <TabContainer><InvoicesContainer  acceptInvoice={acceptInvoice} invoices={rejectedInvoices} email={email} userName={userName}/></TabContainer>}
+            {value === 2 && <TabContainer><InvoicesContainer invoices={unpaidInvoices} email={email} userName={userName} /></TabContainer>}
+            {value === 3 && <TabContainer><InvoicesContainer invoices={partiallyInvoices} email={email} userName={userName}/></TabContainer>}
+            {value === 4 && <TabContainer><InvoicesContainer invoices={fullyInvoices} email={email} userName={userName}/></TabContainer>}
+            {value === 5 && <TabContainer><InvoicesContainer invoices={voidedInvoices} email={email} userName={userName}/></TabContainer>}
           </div>
         </ManagementLayout>
   );
@@ -116,7 +123,9 @@ const mapStateToProps = state => ({
 const InvoicesMapped = connect(
   mapStateToProps,
   {
-      getInvoices
+      getInvoices,
+      acceptInvoice,
+      rejectInvoice
   }
 )(Invoices);
 

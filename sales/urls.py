@@ -1,4 +1,5 @@
 from rest_framework.routers import DefaultRouter
+from django.urls import path
 from .apis import (
 		QuotationViewSet,
 		InvoiceViewSet,
@@ -8,13 +9,16 @@ from .apis import (
 		CustomerProductLineViewSet,
 		CustomerServiceLineViewSet,
 		CustomerInvoiceViewSet,
-		CustomerQuotationViewSet
+		CustomerQuotationViewSet,
+		CustomerPaymentViewSet,
+		CustomerCartAPIView
 	)
 
 
 router = DefaultRouter()
 
 
+router.register('customer-payments', CustomerPaymentViewSet, basename='customer-payments')
 router.register('customer-quotations', CustomerQuotationViewSet, basename='customer-quotations')
 router.register('customer-invoices', CustomerInvoiceViewSet, basename='customer-invoices')
 router.register('quotations', QuotationViewSet, basename='quotations')
@@ -26,4 +30,6 @@ router.register('customer-product-lines', CustomerProductLineViewSet, basename='
 router.register('customer-service-lines', CustomerServiceLineViewSet, basename='customer-service-lines')
 
 
-urlpatterns = router.urls
+urlpatterns = [
+	path('customer-cart/', CustomerCartAPIView.as_view(), name='customer-cart'),
+] + router.urls

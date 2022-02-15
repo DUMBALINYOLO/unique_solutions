@@ -26,6 +26,8 @@ export const customerquotationsURL = `${endpoint}/sales/customer-quotations/`
 export const paymentreportsURL = `${endpoint}/sales/payment-reports/`
 export const customerproductlinesURL = `${endpoint}/sales/customer-product-lines/`
 export const customerservicelinesURL = `${endpoint}/sales/customer-service-lines/`
+export const customerpaymentsURL = `${endpoint}/sales/customer-payments/`
+export const customercartURL = `${endpoint}/sales/customer-cart/`
 
 export const productsURL = `${endpoint}/products/products/`
 export const productimagesURL = `${endpoint}/products/product-images/`

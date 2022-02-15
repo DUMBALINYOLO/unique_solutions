@@ -256,6 +256,11 @@ class InvoiceLine(models.Model):
             return self.service.fee
 
 
+    @property
+    def price(self):
+        return self.get_price()
+
+
 
 
 

@@ -4,9 +4,8 @@ import Card from '@mui/material/Card';
 import {connect} from 'react-redux';
 import { withStyles } from '@mui/styles';
 import { DataTable } from 'primereact/datatable';
-import { Column } from 'primereact/column';
-import { useNavigate } from 'react-router-dom';
 import { Button } from 'primereact/button';
+import { Column } from 'primereact/column';
 
 
 
@@ -22,22 +21,38 @@ const styles = theme => ({
 
 const Invoices = (props)  => {
 
-  const {invoices} = props;
-  const navigate = useNavigate();
+  const {invoices, token, acceptInvoice, rejectInvoice, getInvoices} = props;
+  console.log(props)
 
 
-  const handleClick = (id) =>{
-    navigate(`/management/invoices/${id}`);
-  }
+  const invoiceAccept = (id, rowData, token) => {
+      acceptInvoice(id, rowData, token);
+      getInvoices(token);
+
+  };
+
+
+  const invoiceReject = (id, rowData, token) => {
+      rejectInvoice(id, rowData, token);
+      getInvoices(token);
+  };
+
 
   const actionBodyTemplate = (rowData) => {
         return (
             <React.Fragment>
                 <Button
-                  className="p-button-warning p-mr-2 p-mb-2"
-                  label='VIEW'
                   style={{padding: '5px'}}
-                  onClick={() => handleClick(rowData.id)}
+                  className="p-button-warning p-mr-2 p-mb-2"
+                  label='ACCEPT'
+                  onClick={() => invoiceAccept(rowData.id, rowData, token)}
+                >
+                </Button>
+                <Button
+                  className="p-button-danger p-mr-2 p-mb-2"
+                  label='REJECT'
+                  style={{padding: '5px'}}
+                  onClick={() => invoiceReject(rowData.id, rowData, token)}
 
                 />
             </React.Fragment>
@@ -110,7 +125,6 @@ const Invoices = (props)  => {
         </Card>
   );
 }
-
 
 
 export default withStyles(styles)(Invoices);

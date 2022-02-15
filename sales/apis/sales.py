@@ -72,6 +72,39 @@ def customer_total_due(transactions):
 
 
 
+
+def get_total_paid(invoices):
+    return sum([invoice.total_paid for invoice in invoices])
+
+
+def get_total_owed(invoices):
+    return sum([invoice.total_due for invoice in invoices])
+
+
+def get_total(invoices):
+    return sum([invoice.total for invoice in invoices])
+
+
+def get_subtotal(invoices):
+    return sum([invoice.subtotal for invoice in invoices])
+
+
+
+def get_product_name(product):
+	try:
+		return product.name
+	except AttributeError:
+		return 'None'
+
+def get_service_name(service):
+	try:
+		return service.name
+	except AttributeError:
+		return 'None'
+
+
+
+
 class CustomerInvoiceViewSet(viewsets.ModelViewSet):
 	authentication_classes = (TokenAuthentication,)
 	permission_classes = [permissions.IsAuthenticated,]
@@ -128,7 +161,6 @@ class QuotationViewSet(viewsets.ModelViewSet):
 
 	def create(self, request, *args, **kwargs):
 		data = request.data.copy()
-		print(data)
 		user = request.user
 		bursar = get_bursar(user.email)
 		customer = get_customer(data['customer'])
@@ -149,6 +181,7 @@ class QuotationViewSet(viewsets.ModelViewSet):
 
 
 	def get_queryset(self, *args, **kwargs):
+		print(self.request.user)
 		queryset = Invoice.objects.prefetch_related(
 											'validated_by',
 											'customer',
@@ -160,6 +193,7 @@ class QuotationViewSet(viewsets.ModelViewSet):
 										).order_by('-id')
 
 		return queryset
+
 
 
 
@@ -191,7 +225,6 @@ class InvoiceViewSet(viewsets.ModelViewSet):
 
 	def create(self, request, *args, **kwargs):
 		data = request.data.copy()
-		print(data)
 		user = request.user
 		bursar = get_bursar(user.email)
 		customer = get_customer(data['customer'])
@@ -231,7 +264,7 @@ class InvoiceViewSet(viewsets.ModelViewSet):
 		user = request.user
 		data = request.data.copy()
 		print(data)
-		bursar = get_bursar(user.email)
+		bursar = get_bookkeeper(user.email)
 		invoice=get_invoice(data['invoice'])
 		data['bookkeeper'] = bursar.pk
 		data['invoice'] = invoice.pk
@@ -245,6 +278,39 @@ class InvoiceViewSet(viewsets.ModelViewSet):
 			status=status.HTTP_201_CREATED,
 		)
 
+
+
+	@action(detail=True, methods=['post', 'list', 'get', 'create'])
+	def accept(self, request, *args, **kwargs):
+		print(request.user)
+		invoice = self.get_object()
+		invoice.company_status = 'accepted'
+		invoice.validated_by = request.user
+		invoice.bookkeeper = request.user
+		invoice.ordered =True
+		invoice.save()
+
+		for line in invoice.lines.all():
+			line.ordered = True
+			line.save()
+
+		return Response({'message': 'Success'})
+
+
+
+	@action(detail=True, methods=['post', 'list', 'get', 'create'])
+	def reject(self, request, *args, **kwargs):
+		invoice = self.get_object()
+		invoice.company_status = 'rejected'
+		invoice.validated_by = request.user
+		invoice.bookkeeper = request.user
+		invoice.ordered = True
+		invoice.save()
+
+		for line in invoice.lines.all():
+			line.ordered = True
+			line.save()
+		return Response({'message': 'Success'})
 
 
 class InvoiceLineViewSet(viewsets.ModelViewSet):
@@ -346,46 +412,54 @@ class CustomerProductLineViewSet(viewsets.ModelViewSet):
 
 	def get_queryset(self, *args, **kwargs):
 
-	    invoice_id = self.request.query_params.get('id', None)
+		invoice_id = self.request.query_params.get('id', None)
 
-	    queryset = InvoiceLine.objects.select_related(
-	                                       'invoice',
-	                                        'service',
-	                                        'product',
-	                                    ).filter(
-	                                        ~ComplexQueryFilter(
-	                                            type__in =[
-	                                                'service',
-	                                            ]
-	                                        )
-	                                    ).order_by('-id')
+		print(invoice_id)
 
-	    if invoice_id is not None:
-	        if invoice_id != 'undefined':
-	            queryset = queryset.filter(
-	                            invoice = get_invoice(invoice_id)
-	                    )
-	        else:
-	            queryset = []
-	    return queryset
+		queryset = InvoiceLine.objects.select_related(
+		                                   'invoice',
+		                                    'service',
+		                                    'product',
+		                                ).filter(
+		                                    ~ComplexQueryFilter(
+		                                        type__in =[
+		                                            'service',
+		                                        ]
+		                                    )
+		                                ).order_by('-id')
+
+		if invoice_id is not None:
+		    if invoice_id != 'undefined':
+		        queryset = queryset.filter(
+		                        invoice = get_invoice(invoice_id)
+		                )
+		    else:
+		        queryset = []
+		return queryset
 
 
 	def create(self, request, *args, **kwargs):
 		data = request.data.copy()
 		print(data)
 		user = request.user
+		print(data)
 
 		order_qs = Invoice.objects.filter(
 			customer=user,
 			ordered=False
 
 		)
+		print(order_qs)
+		#
 		if not order_qs.exists():
 			order = Invoice.objects.create(
 								customer = user,
 								i_type = 'INVOICE'
 							)
+
 			product = get_product(data['product'])
+			print(product)
+
 			order_items = InvoiceLine.objects.filter(
 											product=product,
 											ordered=False,
@@ -404,8 +478,8 @@ class CustomerProductLineViewSet(viewsets.ModelViewSet):
 								quantity = data['quantity'],
 								invoice = order,
 							)
-
-		else:
+		#
+		# else:
 			order =  order_qs[0]
 			product = get_product(data['product'])
 			order_items = InvoiceLine.objects.filter(
@@ -530,60 +604,70 @@ class CustomerServiceLineViewSet(viewsets.ModelViewSet):
 
 
 
+class CustomerPaymentViewSet(viewsets.ModelViewSet):
+	permission_classes = [permissions.IsAuthenticated,]
+	authentication_classes = (TokenAuthentication,)
+	serializer_class = PaymentListDetailSerializer
 
-# class CustomerCartAPIView(views.APIView):
-# 	permission_classes = [permissions.IsAuthenticated,]
-# 	authentication_classes = (TokenAuthentication,)
-# 	parser_classes = [JSONParser,]
+	def get_queryset(self, *args, **kwargs):
+		user = self.request.user
+		queryset = Payment.objects.select_related(
+											'invoice'
+										).filter(
+											ComplexQueryFilter(invoice__customer=user)
+										).order_by('-id')
+		print(queryset)
+		return queryset
 
-# 	def get(self, *args, **kwargs):
-# 		customer_email = self.request.query_params.get('email', None)
-# 		if customer_email is not None:
-# 			customer = get_customer(customer_email)
-# 			orders = Invoice.objects.filter(
-# 								ComplexQueryFilter(ordered=True) &
-# 								ComplexQueryFilter(customer=customer)&
-# 								~ComplexQueryFilter(status='unverified')
-# 							).prefetch_related(
-# 									'validated_by',
-# 									'entry',
-# 									'customer',
-# 								).order_by('-id')
-# 			print(orders)
 
-# 			unpaid_orders = []
-# 			for order in orders:
-# 				if order.payment_status in ['paid-partially', 'unpaid']:
-# 					unpaid_orders.append(order)
-# 			print(unpaid_orders)
 
-# 			lines = []
-# 			for invoice in unpaid_orders:
-# 				for line in invoice.lines.all():
-# 					cart = {
-# 					'id': line.id,
-# 					'type': line.type,
-# 					'product': line.product.title,
-# 					'unit_price': line.price,
-# 					'quantity': line.quantity,
-# 					'subtotal': line.subtotal,
-# 					'tax': line.tax_,
-# 					'discount': line.discount_total,
-# 					'total': line.total,
-# 					}
-# 					lines.append(cart)
-# 			data = {
-# 				'total_paid': get_total_paid(unpaid_orders),
-# 				'total_owed': get_total_owed(unpaid_orders),
-# 				'total':  get_total(unpaid_orders),
-# 				'subtotal': get_subtotal(unpaid_orders),
-# 				'tax': get_tax(unpaid_orders),
-# 				'lines': lines
 
-# 			}
 
-# 			print(data)
+class CustomerCartAPIView(views.APIView):
+	permission_classes = [permissions.IsAuthenticated,]
+	authentication_classes = (TokenAuthentication,)
+	parser_classes = [JSONParser,]
 
-# 			return Response(data, status=status.HTTP_200_OK)
-# 		else:
-# 			return Response({'msg': 'cart not found'}, status=status.HTTP_400_BAD_REQUEST)
+	def get(self, request, *args, **kwargs):
+		customer = request.user
+		orders = Invoice.objects.filter(
+							ComplexQueryFilter(ordered=True) &
+							ComplexQueryFilter(customer=customer)&
+							ComplexQueryFilter(company_status__in = ['pending', 'accepted'])
+						).prefetch_related(
+								'validated_by',
+								'customer',
+							).order_by('-id')
+		print(orders)
+		unpaid_orders = []
+		for order in orders:
+			# if order.status in ['paid-partially', 'unpaid']:
+			unpaid_orders.append(order)
+
+		# print(unpaid_orders)
+		lines = []
+		for invoice in unpaid_orders:
+			for line in invoice.lines.all():
+				cart = {
+					'id': line.id,
+					'type': line.type,
+					'product': get_product_name(line.product),
+					'service': get_service_name(line.service),
+					'unit_price': line.price,
+					'quantity': line.quantity,
+					'subtotal': line.subtotal,
+					'total': line.total,
+				}
+				lines.append(cart)
+		data = {
+			'total_paid': get_total_paid(unpaid_orders),
+			'total_owed': get_total_owed(unpaid_orders),
+			'total':  get_total(unpaid_orders),
+			'subtotal': get_subtotal(unpaid_orders),
+			'lines': lines
+
+		}
+
+		print(data)
+
+		return Response(data, status=status.HTTP_200_OK)

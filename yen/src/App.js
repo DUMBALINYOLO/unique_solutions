@@ -7,6 +7,7 @@ import 'primeicons/primeicons.css';
 import "primereact/resources/themes/bootstrap4-light-purple/theme.css";
 import 'primeflex/primeflex.css';
 import './assets/base.scss';
+import './grid.css';
 import ThemeContext from "./context/ThemeContext";
 import ManagementHome from './management/layout/leftsidebar/LeftSidebar';
 import getTheme from "./theme/theme";
@@ -35,6 +36,13 @@ import ResetPassword from './public/accounts/ResetPassword';
 import RegisterAccount from './public/accounts/RegisterAccount';
 import Login from './public/accounts/Auth';
 import ManagementInvoices from './management/invoices/Invoices';
+import ManagementQuotations from './management/quotations/Quotations';
+import ManagementInvoice from './management/invoices/UnpaidInvoice';
+import Alerts from "./Alerts";
+import AlertMUITemplate from "react-alert-template-mui";
+import { positions, transitions, Provider as AlertProvider } from "react-alert";
+import CustomerPayments from './customer/payments/Payments';
+import CustomerCart from './customer/cart/Cart';
 
 
 import {
@@ -285,6 +293,11 @@ library.add(
 );
 
 
+const options = {
+  position: positions.MIDDLE,
+	timeout: 10000,
+  transition: transitions.SCALE
+};
 
 
 window.__MUI_USE_NEXT_TYPOGRAPHY_VARIANTS__ = true;
@@ -317,114 +330,136 @@ const App = (props) => {
 
       <ThemeContext.Provider value={{ setThemeName, curThemeName }}>
         <ThemeProvider theme={theme}>
-          <Routes>
-            <Route
-              exact
-              path="/"
-              element={<PublicHome />}
-            />
-            <Route
-              exact
-              path='/login'
-              element={<Login/>}
-            />
-            <Route
-              exact
-              path='/reset'
-              element={<ResetPassword/>}
-            />
-            <Route
-              exact
-              path='/register'
-              element={<RegisterAccount />}
-            />
+          <AlertProvider template={AlertMUITemplate} {...options}>
+            <Alerts/>
+            <Routes>
+              <Route
+                exact
+                path="/"
+                element={<PublicHome />}
+              />
+              <Route
+                exact
+                path='/login'
+                element={<Login/>}
+              />
+              <Route
+                exact
+                path='/reset'
+                element={<ResetPassword/>}
+              />
+              <Route
+                exact
+                path='/register'
+                element={<RegisterAccount />}
+              />
 
-            <Route
-              exact
-              path="/products"
-              element={<PublicProducts />}
-            />
-            <Route
-              exact
-              path="/products/:id"
-              element={<PublicProduct />}
-            />
-            <Route
-              exact
-              path="/services"
-              element={<PublicServices />}
-            />
-            <Route
-              exact
-              path="/services/:id"
-              element={<PublicService />}
-            />
-            <Route
-              exact
-              path="/customers/"
-              element={<CustomerHome />}
-            />
-            <Route
-              exact
-              path="/customers/products"
-              element={<CustomerProducts />}
-            />
-            <Route
-              exact
-              path="/customers/products/:id"
-              element={<CustomerProduct />}
-            />
-            <Route
-              exact
-              path="/customers/services"
-              element={<CustomerServices />}
-            />
-            <Route
-              exact
-              path="/customers/services/:id"
-              element={<CustomerService />}
-            />
-            <Route
-              exact
-              path="/customers/invoices"
-              element={<CustomerInvoices />}
-            />
-            <Route
-              exact
-              path="/management"
-              element={<ManagementHome />}
-            />
-            <Route
-              exact
-              path="/management/products"
-              element={<ManagementProducts />}
-            />
-            <Route
-              exact
-              path="/management/products/:id"
-              element={<ManagementProduct />}
-            />
-            <Route
-              exact
-              path="/management/services"
-              element={<ManagementServices />}
-            />
-            <Route
-              exact
-              path="/management/services/:id"
-              element={<ManagementService />}
-            />
-            <Route
-              exact
-              path="/management/invoices"
-              element={<ManagementInvoices />}
-            />
+              <Route
+                exact
+                path="/products"
+                element={<PublicProducts />}
+              />
+              <Route
+                exact
+                path="/products/:id"
+                element={<PublicProduct />}
+              />
+              <Route
+                exact
+                path="/services"
+                element={<PublicServices />}
+              />
+              <Route
+                exact
+                path="/services/:id"
+                element={<PublicService />}
+              />
+              <Route
+                exact
+                path="/customers/"
+                element={<CustomerHome />}
+              />
+              <Route
+                exact
+                path="/customers/products"
+                element={<CustomerProducts />}
+              />
+              <Route
+                exact
+                path="/customers/products/:id"
+                element={<CustomerProduct />}
+              />
+              <Route
+                exact
+                path="/customers/services"
+                element={<CustomerServices />}
+              />
+              <Route
+                exact
+                path="/customers/services/:id"
+                element={<CustomerService />}
+              />
+              <Route
+                exact
+                path="/customers/invoices"
+                element={<CustomerInvoices />}
+              />
+              <Route
+                exact
+                path="/customers/payments"
+                element={<CustomerPayments />}
+              />
+              <Route
+                exact
+                path="/customers/cart"
+                element={<CustomerCart/>}
+              />
+              <Route
+                exact
+                path="/management"
+                element={<ManagementHome />}
+              />
+              <Route
+                exact
+                path="/management/products"
+                element={<ManagementProducts />}
+              />
+              <Route
+                exact
+                path="/management/products/:id"
+                element={<ManagementProduct />}
+              />
+              <Route
+                exact
+                path="/management/services"
+                element={<ManagementServices />}
+              />
+              <Route
+                exact
+                path="/management/services/:id"
+                element={<ManagementService />}
+              />
+              <Route
+                exact
+                path="/management/invoices"
+                element={<ManagementInvoices />}
+              />
+              <Route
+                exact
+                path="/management/invoices/:id"
+                element={<ManagementInvoice />}
+              />
+              <Route
+                exact
+                path="/management/quotations"
+                element={<ManagementQuotations />}
+              />
+              <Route
+                element={<Error />}
+              />
 
-            <Route
-              element={<Error />}
-            />
-
-          </Routes>
+            </Routes>
+          </AlertProvider>
         </ThemeProvider>
     </ThemeContext.Provider>
   );

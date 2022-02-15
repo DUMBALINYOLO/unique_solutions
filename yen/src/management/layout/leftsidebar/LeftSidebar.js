@@ -32,6 +32,7 @@ class LeftSidebar extends Component {
         }
     }
 
+
     return (
       <Fragment>
         <div className={clsx('app-wrapper', contentBackground)}>
