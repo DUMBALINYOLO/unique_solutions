@@ -12,28 +12,28 @@ const SidebarFooter = () => {
         <ul className="app-sidebar-footer">
           <li>
             <Tooltip arrow title="Projects Application">
-              <IconButton href="/ApplicationsProjects">
+              <IconButton >
                 <Activity />
               </IconButton>
             </Tooltip>
           </li>
           <li>
             <Tooltip arrow title="Helpdesk Dashboard">
-              <IconButton href="/DashboardHelpdesk" className="mx-1">
+              <IconButton  className="mx-1">
                 <Bell />
               </IconButton>
             </Tooltip>
           </li>
           <li>
             <Tooltip arrow title="Calendar Application">
-              <IconButton href="/ApplicationsCalendar" className="mx-1">
+              <IconButton  className="mx-1">
                 <Calendar />
               </IconButton>
             </Tooltip>
           </li>
           <li>
             <Tooltip arrow title="Buttons">
-              <IconButton href="/Buttons">
+              <IconButton >
                 <Briefcase />
               </IconButton>
             </Tooltip>

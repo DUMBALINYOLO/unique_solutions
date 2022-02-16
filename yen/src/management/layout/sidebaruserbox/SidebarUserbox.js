@@ -9,10 +9,11 @@ import { connect } from 'react-redux';
 
 
 const SidebarUserbox = props => {
+  const {firstName, lastName} = props;
 
   const user = {
-    name: 'Mphilisi',
-    sub: 'Mpofu',
+    name: firstName,
+    sub: lastName,
   }
 
   const { sidebarToggle, sidebarHover } = props;
@@ -23,11 +24,7 @@ const SidebarUserbox = props => {
         className={clsx('app-sidebar-userbox', {
           'app-sidebar-userbox--collapsed': sidebarToggle && !sidebarHover,
         })}>
-        <Avatar
-          alt="Remy Sharp"
-          src={avatar4}
-          className="app-sidebar-userbox-avatar"
-        />
+
         <Box className="app-sidebar-userbox-name">
           <Box>
             <b>{user.name}</b>
@@ -42,6 +39,9 @@ const SidebarUserbox = props => {
 const mapStateToProps = state => ({
   sidebarToggle: state.ui.sidebarToggle,
   sidebarHover: state.ui.sidebarHover,
+  firstName: state.auth.firstName,
+  lastName: state.auth.lastName,
+
 });
 
 export default connect(mapStateToProps)(SidebarUserbox);

@@ -65,7 +65,7 @@ const TjedzaAppBar = (props) => {
               color="inherit"
               className=" px-4 py-2 text-capitalize"
               component={Link}
-              to='/customers'
+              to='/'
 
             >
               <i className="bg-white">
@@ -84,16 +84,6 @@ const TjedzaAppBar = (props) => {
               color="inherit"
               className=" px-4 py-2 text-capitalize"
               component={Link}
-              to='/customers/cart'
-
-              >
-              <FiShoppingCart className="font-size-xxl" style={{padding: '6px'}}/>
-              ABOUT
-            </Button>
-            <Button
-              color="inherit"
-              className=" px-4 py-2 text-capitalize"
-              component={Link}
               to='/products'
               >
               <FiShoppingCart className="font-size-xxl" style={{padding: '6px'}}/>
@@ -107,15 +97,6 @@ const TjedzaAppBar = (props) => {
             >
                 <FiActivity className="font-size-xxl" style={{padding: '6px'}}/>
                SERVICES
-            </Button>
-            <Button
-              color="inherit"
-              component={Link}
-              to='/customers/payments'
-              className=" px-4 py-2 text-capitalize"
-            >
-              <FiBarChart2 className="font-size-xxl" style={{padding: '6px'}}/>
-               CONTACT
             </Button>
           </div>
         </div>
@@ -186,62 +167,41 @@ const TjedzaAppBar = (props) => {
               </div>
             </ListItem>
             <Divider />
+
+            <Divider />
             <ListItem className="d-block py-3 px-2">
-                <Button
+              <Button
+                color="inherit"
+                className=" px-4 py-2 text-capitalize"
+                component={Link}
+                to='/products'
+                >
+                <FiShoppingCart className="font-size-xxl" style={{padding: '4px'}}/>
+                  PRODUCTS
+              </Button>
+
+            </ListItem>
+            <Divider />
+            <ListItem className="d-block py-3 px-2">
+              <Button
+                color="inherit"
+                className=" px-4 py-2 text-capitalize"
+                component={Link}
+                to='/services'
+              >
+                  <FiActivity className="font-size-xxl" style={{padding: '4px'}}/>
+                 SERVICES
+              </Button>
+
+            </ListItem>
+            <Divider />
+            <Divider />
+            <ListItem className="d-block py-3 px-2">
+              <Button
                   color="inherit"
                   className=" px-4 py-2 text-capitalize"
                   component={Link}
-                  to='/customers/cart'
-                  >
-                  <FiShoppingCart className="font-size-xxl" style={{padding: '4px'}}/>
-                    CART
-                </Button>
-            </ListItem>
-            <Divider />
-            <ListItem className="d-block py-3 px-2">
-              <Button
-                color="inherit"
-                className=" px-4 py-2 text-capitalize"
-                component={Link}
-                to='/customers/tickets'
-                >
-                <FiShoppingCart className="font-size-xxl" style={{padding: '4px'}}/>
-                  TICKETS
-              </Button>
-
-            </ListItem>
-            <Divider />
-            <ListItem className="d-block py-3 px-2">
-              <Button
-                color="inherit"
-                className=" px-4 py-2 text-capitalize"
-                component={Link}
-                to='/customers/invoices'
-              >
-                  <FiActivity className="font-size-xxl" style={{padding: '4px'}}/>
-                 INVOICES
-              </Button>
-
-            </ListItem>
-            <Divider />
-            <ListItem className="d-block py-3 px-2">
-              <Button
-                color="inherit"
-                component={Link}
-                to='/customers/payments'
-                className=" px-4 py-2 text-capitalize"
-              >
-                <FiBarChart2 className="font-size-xxl" style={{padding: '4px'}}/>
-                 PAYMENTS
-              </Button>
-
-            </ListItem>
-            <Divider />
-            <ListItem className="d-block py-3 px-2">
-              <Button
-                  color="inherit"
-                  onClick={props.logout}
-                  className=" px-4 py-2 text-capitalize"
+                  to='/login'
                 >
                   LOGIN
               </Button>

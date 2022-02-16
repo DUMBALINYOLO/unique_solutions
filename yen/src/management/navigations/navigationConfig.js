@@ -30,24 +30,6 @@ const navigationConfig = [
     type: "group",
     children: [
       {
-        id: "user",
-        title: "USERS",
-        type: "collapse",
-        icon: <BsPeopleFill />,
-        children: [
-          {
-            id: "user",
-            title: "USERS",
-            type: "item",
-            url: '/management/users',
-            exact: true,
-          },
-
-        ],
-      },
-
-
-      {
         id: "invoice",
         title: "INVOICES",
         type: "collapse",
@@ -62,21 +44,7 @@ const navigationConfig = [
           },
         ],
       },
-      {
-        id: "quotation",
-        title: "QUOTATIONS",
-        type: "collapse",
-        icon: <BsGraphUp />,
-        children: [
-          {
-            id: "quotation",
-            title: "QUOTATIONS",
-            type: "item",
-            url: '/management/quotations',
-            exact: true,
-          },
-        ],
-      },
+      
 
       {
         id: "PRODUCTS",

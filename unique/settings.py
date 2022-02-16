@@ -46,7 +46,7 @@ AUTH_USER_MODEL = 'users.User'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, 'yen')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -58,6 +58,7 @@ TEMPLATES = [
         },
     },
 ]
+
 
 WSGI_APPLICATION = 'unique.wsgi.application'
 
@@ -102,7 +103,7 @@ USE_TZ = True
 STATIC_URL = 'static/'
 MEDIA_URL = '/media/'
 STATICFILES_DIRS = (
-    os.path.join(BASE_DIR, 'frontend', "build", "static"),  # update the STATICFILES_DIRS
+    os.path.join(BASE_DIR, 'yen', "build", "static"),  # update the STATICFILES_DIRS
 )
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 MEDIA_URL = '/media/'

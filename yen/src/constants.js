@@ -1,5 +1,5 @@
-const localhost = "http://192.168.1.105:8000"
-// const localhost = "http://localhost:8000"
+// const localhost = "http://192.168.1.105:8000"
+const localhost = "http://localhost:8000"
 export const mocalhost = "http://192.168.1.107:8000"
 
 const apiURL = "/api"

@@ -1,0 +1,30 @@
+{
+  "files": {
+    "main.css": "/static/css/main.4516927c.css",
+    "main.js": "/static/js/main.a7dd8a02.js",
+    "static/media/ubuntu.png": "/static/media/ubuntu.dc5fe5910d4a3c13e363.png",
+    "static/media/fort.jpg": "/static/media/fort.7292d28c4a7ddd4bdea9.jpg",
+    "static/media/empty.gif": "/static/media/empty.78fcfa97771922dba4e4.gif",
+    "static/media/primeicons.svg": "/static/media/primeicons.c6e2053303524e39530c.svg",
+    "static/media/Pe-icon-7-stroke.svg?d7yf1v": "/static/media/Pe-icon-7-stroke.09c6a96523589cb91799.svg",
+    "static/media/primeicons.eot": "/static/media/primeicons.7fc4d8e224d1ff1b9c62.eot",
+    "static/media/primeicons.woff": "/static/media/primeicons.449aa8c65cdc5c2a8686.woff",
+    "static/media/primeicons.ttf": "/static/media/primeicons.91bacab1f083f2795272.ttf",
+    "static/media/Pe-icon-7-stroke.eot": "/static/media/Pe-icon-7-stroke.1d449ea50ab8389ee078.eot",
+    "static/media/Pe-icon-7-stroke.woff?d7yf1v": "/static/media/Pe-icon-7-stroke.11f7c073b050d62afb33.woff",
+    "static/media/Pe-icon-7-stroke.ttf?d7yf1v": "/static/media/Pe-icon-7-stroke.7233a7aee250f9b77fba.ttf",
+    "static/media/bg2.jpg": "/static/media/bg2.91c3793b037083667127.jpg",
+    "static/media/bg5.jpg": "/static/media/bg5.19d6dba836d18e89c815.jpg",
+    "static/media/bg1.jpg": "/static/media/bg1.49bdec02fb8de546d5c9.jpg",
+    "static/media/bg3.jpg": "/static/media/bg3.ce19ba6626e726fff487.jpg",
+    "static/media/bg4.jpg": "/static/media/bg4.95de6fb8a0ca32ac3cd5.jpg",
+    "static/media/react.svg": "/static/media/react.0c7567c673305865ae4eb02279d601bd.svg",
+    "index.html": "/index.html",
+    "main.4516927c.css.map": "/static/css/main.4516927c.css.map",
+    "main.a7dd8a02.js.map": "/static/js/main.a7dd8a02.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.4516927c.css",
+    "static/js/main.a7dd8a02.js"
+  ]
+}
