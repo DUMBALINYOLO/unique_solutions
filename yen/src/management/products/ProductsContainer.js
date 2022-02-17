@@ -56,7 +56,7 @@ const Products = (props) => {
       <Dialog
         visible={productDialog}
         style={{ width: '800px' }}
-        header="IMAGE FORM"
+        header="PRODUCT FORM"
         modal
         className="p-fluid"
         onHide={hideDialog}
